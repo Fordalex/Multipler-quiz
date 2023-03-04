@@ -4,6 +4,15 @@
 
 <h3 class="text-center"><%= @room.name %></h3>
 
+<p>Name: <span id="playersName"><%= @player.name %></span></p>
+
 <div id="roomId" data-room-id="<%= @room_id %>"></div>
 
 <h5 id="waitingMessage">Waiting for the quiz to start.</h5>
+
+
+<h4 id="question"></h4>
+
+<p id="messageContainer"></p>
+
+<ul class="question-options" id="questionOptions"></ul>

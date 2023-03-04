@@ -11,6 +11,14 @@ Question.destroy_all
 Player.destroy_all
 Room.destroy_all
 
+# What is their favourite
+# What is their most hated
+# What would they do if
+# What would they rather
+
+# What is their idea of a perfect day?
+# What is their biggest pet peeve?
+
 FactoryBot.create(
   :question,
   question: "What is their favourite film?",
@@ -69,5 +77,71 @@ FactoryBot.create(
   :question,
   question: "What is their favourite music genre?",
   options: "Pop, Rock, Hip Hop, Country, Jazz, Classical, Electronic, Reggae, Metal, R&B"
+)
+
+FactoryBot.create(
+  :question,
+  question: "What is their favourite cuisine?",
+  options: "Italian, Chinese, Indian, Mexican, Thai, Japanese, French, Greek, Spanish, Lebanese"
+)
+
+FactoryBot.create(
+  :question,
+  question: "What is their most hated type of weather?",
+  options: "Hot and humid, Cold and wet, Windy, Foggy, Hazy, Stormy, Cloudy, Sunny, Dry and arid, Snowy"
+)
+
+FactoryBot.create(
+  :question,
+  question: "What would they do if they won the lottery?",
+  options: "Quit their job, Buy a new house, Travel the world, Invest in stocks, Start a business, Donate to charity, Buy a luxury car, Pay off debt, Save for retirement, Buy a yacht"
+)
+
+FactoryBot.create(
+  :question,
+  question: "What would they rather do for vacation?",
+  options: "Relax on a beach, Go on a road trip, Explore a new city, Take a cruise, Go camping, Ski in the mountains, Attend a music festival, Volunteer abroad, Staycation, Go to a theme park"
+)
+
+FactoryBot.create(
+  :question,
+  question: "What would they rather do on a weekend?",
+  options: "Read a book, Watch TV, Go hiking, Play video games"
+)
+
+FactoryBot.create(
+  :question,
+  question: "What is their most hated household chore?",
+  options: "Doing laundry, Washing dishes, Vacuuming, Cleaning the bathroom"
+)
+
+FactoryBot.create(
+  :question,
+  question: "What is their most hated mode of transportation?",
+  options: "Car, Bus, Train, Plane, Boat"
+)
+
+FactoryBot.create(
+  :question,
+  question: "What would they do if they had a day to themselves?",
+  options: "Sleep in, Have a spa day, Watch movies, Go shopping"
+)
+
+FactoryBot.create(
+  :question,
+  question: "What would they rather do on a date?",
+  options: "Go to a fancy restaurant, Have a picnic, Watch a movie, Play mini-golf"
+)
+
+FactoryBot.create(
+  :question,
+  question: "What is their favourite type of music?",
+  options: "Pop, Rock, Hip hop, Jazz, Classical, Country, Electronic, R&B"
+)
+
+FactoryBot.create(
+  :question,
+  question: "What is their most hated type of insect?",
+  options: "Mosquito, Cockroach, Spider, Ant, Fly, Bee, Wasp, Tick"
 )
 

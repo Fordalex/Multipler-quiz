@@ -9,6 +9,7 @@ class PlayersController < ApplicationController
     @player = Player.new(player_params.merge(room: @room))
 
     if @player.save
+      session[:player_id] = @player.id
       players_names = @room.players.pluck(:name)
       ActionCable.server.broadcast "room_channel_#{@room_id}", {players: players_names}
       redirect_to room_show_player_path(room_id: @room.room_id)

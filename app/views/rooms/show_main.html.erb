@@ -13,6 +13,4 @@
   </ul>
 </div>
 
-<% count = Question.count %>
-<% random_offset = rand(count) %>
-<%= random_user = Question.offset(random_offset).first.question %>
+<h1><%= @question.question %></h1>

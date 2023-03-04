@@ -21,10 +21,42 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     received(data) {
       console.log(data)
-      if (data['status'] == 'start') {
-        let waitingMessage = document.getElementById('waitingMessage');
-        waitingMessage.remove()
+      let waitingMessage = document.getElementById('waitingMessage');
+      if (waitingMessage) { waitingMessage.remove() }
+
+      // set current question
+      let question = document.getElementById('question');
+      question.innerHTML = data['question'];
+
+      // clear message container
+      let messageContainer = document.getElementById('messageContainer');
+      messageContainer.innerHTML = '';
+
+      // clear question options
+      let questionOptions = document.getElementById('questionOptions');
+      questionOptions.innerHTML = '';
+
+      // set up player
+      let playersName = document.getElementById('playersName').innerText;
+      if (playersName == data['questioner']) {
+       setupQuestioner(data)
+      } else {
+        setupAnswerer(data)
       }
     }
   });
 });
+
+function setupQuestioner(data) {
+  let options = data['options'].split(',');
+  options = options.map((option, index) => {
+    return `<li>${index + 1}. ${option}</li>`
+  }).join('')
+  let questionOptions = document.getElementById('questionOptions');
+  questionOptions.innerHTML = options;
+}
+
+function setupAnswerer(data) {
+  let messageContainer = document.getElementById('messageContainer');
+  messageContainer.innerHTML = `Waiting for ${data['questioner']} to select the options.`;
+}

@@ -1,6 +1,8 @@
 require "rqrcode"
 
 class RoomsController < ApplicationController
+  before_action :set_question, only: [:show_main]
+
   def new
     @room = Room.new
   end
@@ -31,11 +33,17 @@ class RoomsController < ApplicationController
 
   def show_main
     @room_id = params[:room_id]
-    ActionCable.server.broadcast "room_channel_#{@room_id}", {status: 'start'}
     @room = Room.find_or_create_by(room_id: @room_id)
+
+    ActionCable.server.broadcast "room_channel_#{@room_id}", {
+      question: @question.question,
+      options: @question.options,
+      questioner: @room.players.sample.name
+    }
   end
 
   def show_player
+    @player = Player.find_by(id: session[:player_id])
     @room_id = params[:room_id]
     @room = Room.find_or_create_by(room_id: @room_id)
   end
@@ -48,5 +56,11 @@ class RoomsController < ApplicationController
 
   def room_params
     params.require(:room).permit(:name, :room_id)
+  end
+
+  def set_question
+    count = Question.count
+    random_offset = rand(count)
+    @question = Question.offset(random_offset).limit(1).first
   end
 end

@@ -1,0 +1,16 @@
+body {
+  background-color: #f7f7f7;
+}
+
+.question-options {
+  list-style: none;
+  padding: 1rem;
+}
+
+.question-options li {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background-color: #fff;
+  box-shadow: 0 0 10px 5px #00000005;
+  margin-top: 1rem;
+}
