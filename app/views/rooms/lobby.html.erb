@@ -1,0 +1,24 @@
+<h1 class="text-center">Lobby</h1>
+<h3 class="text-center"><%= @room.name %></h3>
+
+<div id="roomId" data-room-id="<%= @room_id %>"></div>
+
+<div class="row">
+  <div class="col-6">
+    <h5>Scan QR code to join lobby.</h5>
+    <p><%= "#{request.protocol}#{request.domain}:3000/players/new/#{@room.room_id}" %></p>
+  </div>
+
+  <div class="col-6">
+    <div id="users">
+      <h3>Users</h3>
+      <ul id="userList">
+        <% @room.players.each do |player| %>
+          <li><%= player.name %></li>
+        <% end %>
+      </ul>
+    </div>
+
+    <%= link_to 'Start', room_show_main_path(room_id: @room.id) %>
+  </div>
+</div>

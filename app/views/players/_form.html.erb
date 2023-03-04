@@ -1,0 +1,27 @@
+<%= form_for [player] do |form| %>
+  <% if player.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(player.errors.count, "error") %> prohibited this player model from being saved:</h2>
+
+      <ul>
+        <% player.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<div class="row g-3 form-container page-container">
+  <div class="col-12">
+    <%= form.label :name, :name %>
+    <%= form.text_field :name, class: "form-control" %>
+  </div>
+
+  <%= form.hidden_field :room_id, value: @room.room_id %>
+
+  <div class="col-12">
+    <%= form.submit :save, class: "btn btn-primary" %>
+  </div>
+</div>
+<% end %>
+

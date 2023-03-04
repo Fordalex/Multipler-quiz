@@ -23,8 +23,9 @@ document.addEventListener('turbolinks:load', () => {
       console.log(data)
 
       const userList = document.getElementById('userList');
+      userList.innerHTML = '';
 
-      let players_names = ''
+      let players_names = '';
       data['players'].forEach((player) => {
         players_names += `<li>${player}</li>`
       })
