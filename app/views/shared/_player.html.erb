@@ -1,0 +1,10 @@
+<div class="player-container">
+  <div class="player-iconContainer">
+    <%= image_tag "profile/#{player.avatar}", class: 'player-icon', style: "background-color: #{player.colour}; box-shadow: 0 0 0 10px #{player.colour}50;" %>
+    <% if position %>
+      <span class="player-position" style="background-color: <%= player.colour %>;"><%= position %></span>
+    <% end %>
+  </div>
+  <p class="player-name" style="background-color: <%= player.colour %>"><%= player.name %></p>
+  <p class="player-score" ><%= player.score %></p>
+</div>

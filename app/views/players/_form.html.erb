@@ -17,6 +17,16 @@
     <%= form.text_field :name, class: "form-control" %>
   </div>
 
+  <div class="col-12">
+    <%= form.label :colour, :colour %>
+    <%= form.color_field :colour, class: "form-control" %>
+  </div>
+
+  <div class="col-12">
+    <%= form.label :avatar, :avatar %>
+    <%= form.select :avatar, options_for_select(['cold.png', 'cool.png', 'depression.png', 'embarrassed.png', 'emoji.png', 'fire.png', 'funny.png', 'laugh.png', 'smile.png']), class: "form-control" %>
+  </div>
+
   <%= form.hidden_field :room_id, value: @room.room_id %>
 
   <div class="col-12">

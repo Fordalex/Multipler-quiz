@@ -26,3 +26,51 @@ body {
 .question-options .correct {
   background-color: #61fb8f;
 }
+
+/* profile */
+
+.player-container p {
+  margin: 0;
+}
+
+.player-iconContainer {
+  position: relative;
+}
+
+.player-position {
+  position: absolute;
+  left: -3px;
+  bottom: -3px;
+  padding: 0.25rem;
+  border-radius: 0 0 0 0.5rem;
+  color: #fff;
+  font-weight: 700;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  text-align: center;
+}
+
+.player-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  gap: 1rem;
+}
+
+.player-icon {
+  padding: 0.75rem;
+  width: 100px;
+  border-radius: 50%;
+}
+
+.player-name {
+  border-radius: 5px;
+  padding: 0.25rem;
+  min-width: 120px;
+  text-align: center;
+  color: #fff;
+  font-weight: 700;
+}

@@ -1,3 +1,4 @@
 .score-board {
-  list-style: decimal;
+  display: flex;
+  justify-content: flex-start;
 }

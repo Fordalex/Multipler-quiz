@@ -8,11 +8,11 @@
 <div id="roomId" data-room-id="<%= @room_id %>"></div>
 
 <h3>Score board</h3>
-<ul class="score-board">
-    <% @room.player_positions.each do |player| %>
-      <li><%= player.name %> : <%= player.score %></li>
-    <% end %>
-  </ul>
+<div class="score-board">
+  <% @room.player_positions.each_with_index do |player, index| %>
+    <%= render partial: 'shared/player', locals: { player: player, position: index + 1 } %>
+  <% end %>
+</div>
 
 <div id="users">
   <h3>Answering</h3>

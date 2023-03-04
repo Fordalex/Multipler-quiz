@@ -6,6 +6,8 @@ class CreatePlayers < ActiveRecord::Migration[6.1]
       t.references :room, null: false, foreign_key: true
       t.boolean :questioner
       t.string :answer
+      t.string :colour
+      t.string :avatar
 
       t.timestamps
     end

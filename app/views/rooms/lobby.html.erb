@@ -19,7 +19,7 @@
       <h3>Players</h3>
       <ul id="userList">
         <% @room.players.each do |player| %>
-          <li><%= player.name %></li>
+          <li><%= render partial: 'shared/player', locals: { player: player } %></li>
         <% end %>
       </ul>
     </div>
