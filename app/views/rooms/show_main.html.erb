@@ -1,42 +1,18 @@
-<h1>Rooms#show</h1>
-<p>Find me in app/views/rooms/show.html.erb</p>
+<h1>How well do you know each other?</h1>
+<h4><%= @room.name %></h4>
 
 <div id="roomId" data-room-id="<%= @room_id %>"></div>
 
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  Launch demo modal
-</button>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Enter your name</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <%= form_tag("/rooms/add_user/#{@room_id}", method: :post) do %>
-          <div class="mb-3">
-            <label for="name" class="form-label">Name</label>
-            <input type="text" class="form-control" id="name" name="name" aria-describedby="nameHelp">
-          </div>
-
-          <div class="modal-footer">
-            <input type="submit" class="btn btn-primary" value="Done">
-          </div>
-        <% end %>
-      </div>
-    </div>
-  </div>
-</div>
 
 <div id="users">
-  <h3>Users</h3>
+  <h3>Players</h3>
   <ul id="userList">
     <% @room.players.each do |player| %>
       <li><%= player.name %></li>
     <% end %>
   </ul>
 </div>
+
+<% count = Question.count %>
+<% random_offset = rand(count) %>
+<%= random_user = Question.offset(random_offset).first.question %>

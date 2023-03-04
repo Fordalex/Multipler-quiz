@@ -18,7 +18,8 @@ class RoomsController < ApplicationController
 
   def lobby
     @room = Room.find_by(room_id: params[:room_id])
-    qrcode = RQRCode::QRCode.new("#{request.protocol}#{request.domain}:3000/players/new/#{@room.room_id}")
+    @new_player_url = new_player_url
+    qrcode = RQRCode::QRCode.new(@new_player_url)
     @QRCSVG = qrcode.as_svg(
       color: "000",
       shape_rendering: "crispEdges",
@@ -37,6 +38,10 @@ class RoomsController < ApplicationController
   def show_player
     @room_id = params[:room_id]
     @room = Room.find_or_create_by(room_id: @room_id)
+  end
+
+  def new_player_url
+    "#{request.protocol}#{request.remote_ip}:#{request.domain}#{request.port}/players/new/#{@room.room_id}"
   end
 
   private

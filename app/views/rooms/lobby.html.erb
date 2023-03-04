@@ -10,13 +10,13 @@
 <div class="row">
   <div class="col-6">
     <h5>Scan QR code to join lobby.</h5>
-    <p><%= "#{request.protocol}#{request.domain}:3000/players/new/#{@room.room_id}" %></p>
+    <p><%= @new_player_url %></p>
     <p><%= raw @QRCSVG %></p>
   </div>
 
   <div class="col-6">
     <div id="users">
-      <h3>Users</h3>
+      <h3>Players</h3>
       <ul id="userList">
         <% @room.players.each do |player| %>
           <li><%= player.name %></li>
