@@ -1,5 +1,5 @@
-<% content_for :extra_js do %>
-
+<% content_for :channels do %>
+  <%= javascript_pack_tag 'channels/lobby' %>
 <% end %>
 
 <h1 class="text-center">Lobby</h1>
@@ -24,6 +24,6 @@
       </ul>
     </div>
 
-    <%= link_to 'Start', room_show_main_path(room_id: @room.id), class: 'btn btn-primary' %>
+    <%= link_to 'Start', room_show_main_path(room_id: @room.room_id), class: 'btn btn-primary' %>
   </div>
 </div>

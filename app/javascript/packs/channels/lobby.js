@@ -1,6 +1,9 @@
-import consumer from "./consumer"
+// TODO why do I have to create this channels folder in app/javascript/packs?
+// Literally can't get these to load individually without it.
 
-document.addEventListener('turbolinks:load', () => {
+import consumer from "../../channels/consumer"
+
+document.addEventListener("DOMContentLoaded", function(event) {
   const room_id = document.getElementById('roomId').dataset.roomId;
 
   consumer.subscriptions.create({
@@ -26,12 +29,6 @@ document.addEventListener('turbolinks:load', () => {
       })
 
       userList.innerHTML = players_names
-
-      console.log(data)
-      if (data['status'] == 'start') {
-        let waitingMessage = document.getElementById('waitingMessage');
-        waitingMessage.remove()
-      }
     }
   });
 });

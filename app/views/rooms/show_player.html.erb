@@ -1,3 +1,7 @@
+<% content_for :channels do %>
+  <%= javascript_pack_tag 'channels/player' %>
+<% end %>
+
 <h3 class="text-center"><%= @room.name %></h3>
 
 <div id="roomId" data-room-id="<%= @room_id %>"></div>
