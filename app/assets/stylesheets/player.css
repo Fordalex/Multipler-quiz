@@ -27,7 +27,7 @@ body {
   background-color: #61fb8f;
 }
 
-/* profile */
+/* player large */
 
 .player-container p {
   margin: 0;
@@ -67,10 +67,33 @@ body {
 }
 
 .player-name {
-  border-radius: 5px;
+  border-radius: 25px;
   padding: 0.25rem;
   min-width: 120px;
   text-align: center;
   color: #fff;
   font-weight: 700;
+}
+
+/* player small */
+
+.playerSmall-container {
+  border-radius: 25px;
+  background-color: #fff;
+  padding: 0.5rem 1rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+  display: inline-flex;
+}
+
+.playerSmall-container p {
+  margin: 0;
+}
+
+.playerSmall-icon {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
 }

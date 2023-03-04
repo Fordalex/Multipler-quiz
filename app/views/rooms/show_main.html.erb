@@ -10,7 +10,7 @@
 <h3>Score board</h3>
 <div class="score-board">
   <% @room.player_positions.each_with_index do |player, index| %>
-    <%= render partial: 'shared/player', locals: { player: player, position: index + 1 } %>
+    <%= render partial: 'shared/player_large', locals: { player: player, position: index + 1 } %>
   <% end %>
 </div>
 
@@ -18,7 +18,7 @@
   <h3>Answering</h3>
   <ul id="playerList">
     <% @room.answerers.each do |player| %>
-      <li><%= player.name %> <span data-player="<%= player.name %>" data-player-answer=""></span></li>
+      <%= render partial: 'shared/player_small', locals: { player: player } %>
     <% end %>
   </ul>
 </div>
