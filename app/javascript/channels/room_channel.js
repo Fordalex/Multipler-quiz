@@ -9,7 +9,6 @@ document.addEventListener('turbolinks:load', () => {
     },
     {
     connected() {
-      // Called when the subscription is ready for use on the server
       console.log('connected to room channel')
     },
 
@@ -18,9 +17,6 @@ document.addEventListener('turbolinks:load', () => {
     },
 
     received(data) {
-      // Called when there's incoming data on the websocket for this channel
-      console.log(data)
-
       const userList = document.getElementById('userList');
       userList.innerHTML = '';
 
@@ -30,6 +26,12 @@ document.addEventListener('turbolinks:load', () => {
       })
 
       userList.innerHTML = players_names
+
+      console.log(data)
+      if (data['status'] == 'start') {
+        let waitingMessage = document.getElementById('waitingMessage');
+        waitingMessage.remove()
+      }
     }
   });
 });

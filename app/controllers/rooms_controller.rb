@@ -26,16 +26,16 @@ class RoomsController < ApplicationController
       standalone: true,
       use_path: true
     )
-
   end
 
   def show_main
-    @room_id = params[:id]
+    @room_id = params[:room_id]
+    ActionCable.server.broadcast "room_channel_#{@room_id}", {status: 'start'}
     @room = Room.find_or_create_by(room_id: @room_id)
   end
 
   def show_player
-    @room_id = params[:id]
+    @room_id = params[:room_id]
     @room = Room.find_or_create_by(room_id: @room_id)
   end
 
