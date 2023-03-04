@@ -1,3 +1,5 @@
+require "rqrcode"
+
 class RoomsController < ApplicationController
   def new
     @room = Room.new
@@ -16,6 +18,15 @@ class RoomsController < ApplicationController
 
   def lobby
     @room = Room.find_by(room_id: params[:room_id])
+    qrcode = RQRCode::QRCode.new("#{request.protocol}#{request.domain}:3000/players/new/#{@room.room_id}")
+    @QRCSVG = qrcode.as_svg(
+      color: "000",
+      shape_rendering: "crispEdges",
+      module_size: 11,
+      standalone: true,
+      use_path: true
+    )
+
   end
 
   def show_main

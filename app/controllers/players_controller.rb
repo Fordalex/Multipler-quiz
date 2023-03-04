@@ -11,7 +11,7 @@ class PlayersController < ApplicationController
     if @player.save
       players_names = @room.players.pluck(:name)
       ActionCable.server.broadcast "room_channel_#{@room_id}", {players: players_names}
-      redirect_to room_lobby_path(room_id: @room.room_id)
+      redirect_to room_show_player_path(room_id: @room.room_id)
     else
       render :new
     end

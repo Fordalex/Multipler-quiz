@@ -7,6 +7,7 @@
   <div class="col-6">
     <h5>Scan QR code to join lobby.</h5>
     <p><%= "#{request.protocol}#{request.domain}:3000/players/new/#{@room.room_id}" %></p>
+    <p><%= raw @QRCSVG %></p>
   </div>
 
   <div class="col-6">

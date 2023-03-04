@@ -1,7 +1,6 @@
 import consumer from "./consumer"
 
 document.addEventListener('turbolinks:load', () => {
-
   const room_id = document.getElementById('roomId').dataset.roomId;
 
   consumer.subscriptions.create({
@@ -31,7 +30,6 @@ document.addEventListener('turbolinks:load', () => {
       })
 
       userList.innerHTML = players_names
-
     }
   });
 });
