@@ -7,12 +7,18 @@
 
 <div id="roomId" data-room-id="<%= @room_id %>"></div>
 
+<h3>Score board</h3>
+<ul class="score-board">
+    <% @room.player_positions.each do |player| %>
+      <li><%= player.name %> : <%= player.score %></li>
+    <% end %>
+  </ul>
 
 <div id="users">
   <h3>Answering</h3>
-  <ul id="userList">
+  <ul id="playerList">
     <% @room.answerers.each do |player| %>
-      <li><%= player.name %> <span data-player="<%= player.name %>"></span></li>
+      <li><%= player.name %> <span data-player="<%= player.name %>" data-player-answer=""></span></li>
     <% end %>
   </ul>
 </div>

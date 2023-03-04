@@ -10,7 +10,6 @@
 
 <h5 id="waitingMessage">Waiting for the quiz to start.</h5>
 
-
 <h4 id="question"></h4>
 
 <p id="messageContainer"></p>
@@ -24,5 +23,6 @@
 
 <%= form_tag "/rooms/#{@room_id}/selected_answer", method: :post, remote: true do %>
   <%= hidden_field_tag :selected_answer %>
+  <%= hidden_field_tag :player_answered, @player.name %>
   <%= submit_tag 'Answer', id: 'answererSubmitButton', class: 'btn btn-primary d-none' %>
 <% end %>

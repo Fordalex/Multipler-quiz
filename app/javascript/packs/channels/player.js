@@ -48,6 +48,10 @@ function startQuiz(data) {
   let question = document.getElementById('question');
   question.innerHTML = data['question'];
 
+  // clear question options
+  let questionOptions = document.getElementById('question_options');
+  questionOptions.value = '';
+
   clearDisplay();
 
   // set up player

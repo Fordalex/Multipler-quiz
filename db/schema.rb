@@ -14,9 +14,10 @@ ActiveRecord::Schema.define(version: 2023_03_04_115051) do
 
   create_table "players", force: :cascade do |t|
     t.string "name"
-    t.integer "score"
+    t.integer "score", default: 0
     t.integer "room_id", null: false
     t.boolean "questioner"
+    t.string "answer"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["room_id"], name: "index_players_on_room_id"
