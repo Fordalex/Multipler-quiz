@@ -55,9 +55,11 @@ class RoomsController < ApplicationController
     @room = Room.find_by(room_id: @room_id)
     @room.reset_players_answered
     @room.questioner.update(answer: params[:question_options].split(',').last)
+    random_order_options = params[:question_options].split(',').shuffle.join(',')
 
     ActionCable.server.broadcast "room_channel_#{@room_id}", {
-      question_options: params[:question_options],
+      correct_answer: @room.questioner.answer,
+      question_options: random_order_options,
       questioner: @room.questioner.name,
       action: 'select answer',
     }

@@ -26,6 +26,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       let action = data['action'];
 
       if (action == 'select answer') {
+        correctAnswer = data['correct_answer'];
         displayOptions(data['question_options'].split(','));
         displayWaitingForPlayers();
       }
@@ -50,8 +51,6 @@ function playerAnswered(data) {
 }
 
 function displayOptions(options) {
-  correctAnswer = options[3];
-
   let questionOptions = document.getElementById('questionOptions');
   options = options.map((option) => {
     return `<li data-option="${option}">${option}</li>`
