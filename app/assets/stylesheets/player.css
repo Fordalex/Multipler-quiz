@@ -1,5 +1,5 @@
 body {
-  background-color: #f7f7f7;
+  background-color: #f8f8f8;
 }
 
 .question-options {
@@ -13,4 +13,17 @@ body {
   background-color: #fff;
   box-shadow: 0 0 10px 5px #00000005;
   margin-top: 1rem;
+}
+
+/* .question-options li:hover {
+  background-color: #e9e9e9;
+  cursor: pointer;
+} */
+
+.question-options .selected {
+  background-color: #61fb8f;
+}
+
+.question-options .selected-decoy {
+  background-color: #fbc061;
 }

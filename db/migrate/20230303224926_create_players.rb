@@ -4,6 +4,7 @@ class CreatePlayers < ActiveRecord::Migration[6.1]
       t.string :name
       t.integer :score
       t.references :room, null: false, foreign_key: true
+      t.boolean :questioner
 
       t.timestamps
     end

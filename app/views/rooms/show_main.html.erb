@@ -1,3 +1,7 @@
+<% content_for :channels do %>
+  <%= javascript_pack_tag 'channels/main' %>
+<% end %>
+
 <h1>How well do you know each other?</h1>
 <h4><%= @room.name %></h4>
 
@@ -14,3 +18,5 @@
 </div>
 
 <h1><%= @question.question %></h1>
+
+<ul class="question-options" id="questionOptions"></ul>

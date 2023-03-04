@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     get 'lobby'
     get 'show_main'
     get 'show_player'
+    post 'question_options'
   end
 
   # get 'pages/index'

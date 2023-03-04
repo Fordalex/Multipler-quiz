@@ -33,19 +33,34 @@ class RoomsController < ApplicationController
 
   def show_main
     @room_id = params[:room_id]
-    @room = Room.find_or_create_by(room_id: @room_id)
+    @room = Room.find_by(room_id: @room_id)
+    questioner = @room.players.sample
+    questioner.update(questioner: true)
 
     ActionCable.server.broadcast "room_channel_#{@room_id}", {
       question: @question.question,
       options: @question.options,
-      questioner: @room.players.sample.name
+      questioner: questioner.name,
+      action: 'start quiz',
     }
   end
 
   def show_player
     @player = Player.find_by(id: session[:player_id])
     @room_id = params[:room_id]
-    @room = Room.find_or_create_by(room_id: @room_id)
+    @room = Room.find_by(room_id: @room_id)
+  end
+
+  def question_options
+    @room_id = params[:room_id]
+    @room = Room.find_by(room_id: @room_id)
+
+    ActionCable.server.broadcast "room_channel_#{@room_id}", {
+      question_options: params[:question_options],
+      questioner: @room.questioner.name,
+      action: 'select answer',
+    }
+    return nil
   end
 
   def new_player_url

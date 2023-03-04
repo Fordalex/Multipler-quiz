@@ -20,16 +20,21 @@ document.addEventListener("DOMContentLoaded", function(event) {
     },
 
     received(data) {
+      console.log(data)
+      let action = data['action'];
 
-      const userList = document.getElementById('userList');
-      userList.innerHTML = '';
-
-      let players_names = '';
-      data['players'].forEach((player) => {
-        players_names += `<li>${player}</li>`
-      })
-
-      userList.innerHTML = players_names
+      if (action == 'select answer') {
+        displayOptions(data['question_options'].split(','));
+      }
     }
   });
 });
+
+function displayOptions(options) {
+  let questionOptions = document.getElementById('questionOptions');
+  options = options.map((option) => {
+    return `<li>${option}</li>`
+  }).join('')
+
+  questionOptions.innerHTML = options;
+}

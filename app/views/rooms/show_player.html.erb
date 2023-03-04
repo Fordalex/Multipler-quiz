@@ -16,3 +16,13 @@
 <p id="messageContainer"></p>
 
 <ul class="question-options" id="questionOptions"></ul>
+
+<%= form_tag "/rooms/#{@room_id}/question_options", method: :post, remote: true do %>
+  <%= hidden_field_tag :question_options %>
+  <%= submit_tag 'Done', id: 'questionerSubmitButton', class: 'btn btn-primary d-none' %>
+<% end %>
+
+<%= form_tag "/rooms/#{@room_id}/selected_answer", method: :post, remote: true do %>
+  <%= hidden_field_tag :selected_answer %>
+  <%= submit_tag 'Answer', id: 'answererSubmitButton', class: 'btn btn-primary d-none' %>
+<% end %>
