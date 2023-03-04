@@ -34,13 +34,12 @@ class RoomsController < ApplicationController
   def show_main
     @room_id = params[:room_id]
     @room = Room.find_by(room_id: @room_id)
-    questioner = @room.players.sample
-    questioner.update(questioner: true)
+    @room.change_questioner
 
     ActionCable.server.broadcast "room_channel_#{@room_id}", {
-      question: @question.question,
+      question: @question.question_for(@room.questioner.name),
       options: @question.options,
-      questioner: questioner.name,
+      questioner: @room.questioner.name,
       action: 'start quiz',
     }
   end

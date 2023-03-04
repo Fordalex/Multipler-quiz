@@ -9,14 +9,15 @@
 
 
 <div id="users">
-  <h3>Players</h3>
+  <h3>Answering</h3>
   <ul id="userList">
-    <% @room.players.each do |player| %>
-      <li><%= player.name %></li>
+    <% @room.answerers.each do |player| %>
+      <li><%= player.name %> <span data-player="<%= player.name %>"></span></li>
     <% end %>
   </ul>
 </div>
 
-<h1><%= @question.question %></h1>
+<h4>Question for <%= @room.questioner.name %></h4>
+<h1><%= @question.question_for(@room.questioner.name) %></h1>
 
 <ul class="question-options" id="questionOptions"></ul>

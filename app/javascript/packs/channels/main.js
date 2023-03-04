@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
       if (action == 'select answer') {
         displayOptions(data['question_options'].split(','));
+        displayWaitingForPlayers();
       }
     }
   });
@@ -37,4 +38,12 @@ function displayOptions(options) {
   }).join('')
 
   questionOptions.innerHTML = options;
+}
+
+function displayWaitingForPlayers() {
+  let playerNames = document.querySelectorAll('[data-player]');
+  console.log(playerNames)
+  playerNames.forEach((player) => {
+    player.innerHTML = ' - Waiting for answer';
+  });
 }
