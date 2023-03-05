@@ -4,6 +4,18 @@
   align-items: center;
 }
 
+.home-textContainer p {
+  font-size: 1.1rem;
+  color: rgb(145, 145, 145);
+  margin-top: 0.5rem;
+  margin-bottom: 2.2rem;
+}
+
+.home-title {
+  font-size: 3.2rem;
+  margin: 0;
+}
+
 .home-imgContainer {
   display: flex;
   justify-content: center;
@@ -12,4 +24,10 @@
 
 .home-imgContainer img {
   width: 100%;
+}
+
+.home-button {
+  padding: 1rem 2.7rem;
+  border-radius: 2rem;
+  box-shadow: 0 4px 15px 0 #00000030;
 }
