@@ -1,4 +1,11 @@
+
+
 .score-board {
   display: flex;
   justify-content: flex-start;
+}
+
+.page-container {
+  min-height: 95vh;
+  max-width: 1200px;
 }

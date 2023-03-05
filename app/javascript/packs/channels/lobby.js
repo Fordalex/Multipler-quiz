@@ -21,15 +21,18 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     received(data) {
 
+        console.log(data)
+
       const userList = document.getElementById('userList');
       userList.innerHTML = '';
 
       let players_names = '';
       data['players'].forEach((player) => {
-        players_names += `<li>${player}</li>`
+        playerIconStyle.getElementById('playerName').innerHTML = player;
+        players_names += playerIconStyle;
       })
 
-      userList.innerHTML = players_names
+      userList.innerHTML = players_names;
     }
   });
 });

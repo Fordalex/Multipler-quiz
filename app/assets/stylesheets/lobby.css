@@ -1,0 +1,41 @@
+.lobby-container {
+  min-height: 100vh;
+}
+
+.qrcode-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+}
+
+.qrcode-container p,
+.qrcode-container h5 {
+  text-align: center;
+}
+
+.qrcode-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.lobby-wrapper {
+  background-color: #fafafa;
+  position: relative;
+  padding: 3rem;
+}
+
+.lobby-button {
+  position: absolute;
+  bottom: 3rem;
+  left: 3rem;
+  right: 3rem;
+}
+
+.lobby-playerList {
+  height: 60vh;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+}
