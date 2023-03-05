@@ -1,8 +1,24 @@
-
-
 .score-board {
   display: flex;
   justify-content: flex-start;
+  padding: 1rem;
+}
+
+.score-board .player-container:nth-child(1) {
+  transform: scale(1);
+}
+
+.score-board .player-container:nth-child(2) {
+  transform: scale(0.9);
+}
+
+.score-board .player-container:nth-child(3) {
+  transform: scale(0.8);
+}
+
+.score-board .player-container {
+  transform: scale(0.7);
+  padding: 0;
 }
 
 .page-container {

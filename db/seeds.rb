@@ -15,10 +15,16 @@ Room.destroy_all
 # What is %{questioner} most hated
 # What would they do if
 # What would they rather
-# True or False questions.
-
 # What is %{questioner} idea of a perfect day?
 # What is %{questioner} biggest pet peeve?
+
+
+# ------ different logic -------
+# True or False questions.
+# Who is more likely to.
+
+# could just add a decoy integer to a question and the True and False should work without much effort.
+
 
 FactoryBot.create(
   :question,

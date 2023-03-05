@@ -8,6 +8,7 @@ class CreatePlayers < ActiveRecord::Migration[6.1]
       t.string :answer
       t.string :colour
       t.string :avatar
+      t.datetime :time_taken_to_answer
 
       t.timestamps
     end

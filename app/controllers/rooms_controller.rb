@@ -54,6 +54,7 @@ class RoomsController < ApplicationController
     @room_id = params[:room_id]
     @room = Room.find_by(room_id: @room_id)
     @room.reset_players_answered
+    @room.update(question_start_time: Time.now)
     @room.questioner.update(answer: params[:question_options].split(',').last)
     random_order_options = params[:question_options].split(',').shuffle.join(',')
 
@@ -71,10 +72,13 @@ class RoomsController < ApplicationController
     @room = Room.find_by(room_id: @room_id)
     player_answered = @room.players.find_by(name: params[:player_answered])
     player_answered.update(answer: params[:selected_answer])
+    time_taken_to_answer = Time.now - @room.question_start_time
+    player_answered.update(time_taken_to_answer: time_taken_to_answer)
 
     ActionCable.server.broadcast "room_channel_#{@room_id}", {
       player_answered: params[:player_answered],
       selected_answer: params[:selected_answer],
+      time_taken_to_answer: time_taken_to_answer,
       action: 'player answered'
     }
     @room.give_points if @room.everyone_answered?

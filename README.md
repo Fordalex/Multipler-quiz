@@ -22,3 +22,11 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+### Features left to implement
+
+Find player by ID and not their name, this can have issues.
+A player should get more points for answering faster.
+Display the time taken to answer the question.
+A question needs to have a decoy count so true/false questions can be added.
+When creating a room a set number of rounds needs to be selected.

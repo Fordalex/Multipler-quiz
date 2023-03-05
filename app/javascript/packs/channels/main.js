@@ -44,6 +44,7 @@ function playerAnswered(data) {
   let player = document.querySelector(`[data-player="${data['player_answered']}"]`);
   player.innerHTML = ' - Answered';
   player.dataset.playerAnswer = data['selected_answer'];
+  player.dataset.timeTaken = data['time_taken_to_answer'];
 
   if (everyoneHasAnswered()) {
     displayResults();
