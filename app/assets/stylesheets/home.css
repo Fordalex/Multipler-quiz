@@ -1,0 +1,15 @@
+.home-textContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-imgContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-imgContainer img {
+  width: 100%;
+}

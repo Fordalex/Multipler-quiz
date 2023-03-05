@@ -1,3 +1,14 @@
-<h1>How well do you know each other?</h1>
-<p>Create a the room from the main screen you'll all share.</p>
-<%= link_to 'Create a New Room', new_room_path, class: 'btn btn-primary' %>
+<div class="row page-container">
+  <div class="col-6 home-textContainer">
+    <div>
+      <h1>How well do you know each other?</h1>
+      <p>Create a the room from the main screen you'll all share.</p>
+      <%= link_to 'Create a New Room', new_room_path, class: 'btn btn-primary' %>
+    </div>
+  </div>
+
+  <div class="col-6 home-imgContainer">
+    <%= image_tag 'illustrations/home.svg' %>
+  </div>
+</div>
+
