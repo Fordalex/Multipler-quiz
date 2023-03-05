@@ -59,6 +59,10 @@ class RoomsController < ApplicationController
     random_order_options = params[:question_options].split(',').shuffle.join(',')
 
     ActionCable.server.broadcast "room_channel_#{@room_id}", {
+      action: 'get ready',
+    }
+    sleep(3)
+    ActionCable.server.broadcast "room_channel_#{@room_id}", {
       correct_answer: @room.questioner.answer,
       question_options: random_order_options,
       questioner: @room.questioner.name,

@@ -37,6 +37,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
         playerAnsweredSound.play();
         playerAnswered(data)
       }
+
+      if (action == 'get ready') {
+        getReadySound.play();
+      }
     }
   });
 });
@@ -45,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 function playerAnswered(data) {
   let player = document.querySelector(`[data-player="${data['player_answered']}"]`);
-  player.innerHTML = ' - Answered';
+  player.innerHTML = ` - ${parseFloat(data['time_taken_to_answer']).toFixed(3)}s'`;
   player.dataset.playerAnswer = data['selected_answer'];
   player.dataset.timeTaken = data['time_taken_to_answer'];
 
