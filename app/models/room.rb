@@ -22,8 +22,16 @@ class Room < ApplicationRecord
     players.update_all(answer: '')
   end
 
+  def reset_players_ready_status
+    players.update_all(ready: false)
+  end
+
   def everyone_answered?
     players.where(answer: '').empty?
+  end
+
+  def everyone_ready?
+    players.where(ready: false).empty?
   end
 
   def give_points

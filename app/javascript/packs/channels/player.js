@@ -34,6 +34,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
       if (action == 'select answer') {
         selectAnswer(data);
       }
+
+      if (action == 'everyone has answered') {
+        clearDisplay();
+        displayReadyButton();
+      }
     }
   });
 });
@@ -92,6 +97,15 @@ function clearDisplay() {
   // hide answerer submit button
   let answererSubmitButton = document.getElementById('answererSubmitButton');
   answererSubmitButton.classList.add('d-none');
+
+  // hide ready button
+  let readyButton = document.getElementById('playerReadyButton');
+  readyButton.classList.add('d-none');
+}
+
+function displayReadyButton() {
+  let readyButton = document.getElementById('playerReadyButton');
+  readyButton.classList.remove('d-none');
 }
 
 // questioner

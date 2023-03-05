@@ -7,6 +7,7 @@ let correctAnswer;
 
 document.addEventListener("DOMContentLoaded", function(event) {
   const room_id = document.getElementById('roomId').dataset.roomId;
+  displayQuestionSound.play();
 
   consumer.subscriptions.create({
       channel: "RoomChannel",
@@ -33,6 +34,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
         displayWaitingForPlayers();
       }
 
+      if (action == 'get ready') {
+        getReadySound.play();
+      }
+
       if (action == 'player answered') {
         var sound = document.getElementById("playerAnsweredSound");
         var clone = sound.cloneNode();
@@ -40,8 +45,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
         playerAnswered(data)
       }
 
-      if (action == 'get ready') {
-        getReadySound.play();
+      if (action == 'everyone has answered') {
+        selectAnswerSound.pause();
+        displayAnswersSound.play();
+        displayResults();
+      }
+
+      if (action == 'start quiz') {
+        displayQuestionSound.play();
+        setupTheQuestion(data);
       }
     }
   });
@@ -49,19 +61,20 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 // life cycle
 
+function setupTheQuestion(data) {
+  let displayQuestion = document.getElementById('displayQuestion');
+  displayQuestion.innerHTML = data['question'];
+
+  let questionOptions = document.getElementById('questionOptions');
+  questionOptions.innerHTML = '';
+}
+
 function playerAnswered(data) {
   let player = document.querySelector(`[data-player="${data['player_answered']}"]`);
   let timeTaken = parseFloat(data['time_taken_to_answer']).toFixed(3)
   player.innerHTML = ` - ${timeTaken}s'`;
   player.dataset.playerAnswer = data['selected_answer'];
   player.dataset.timeTaken = timeTaken;
-
-  // move this logic to the controller and add a new action instead.
-  if (everyoneHasAnswered()) {
-    selectAnswerSound.pause();
-    displayAnswersSound.play();
-    displayResults();
-  }
 }
 
 function displayOptions(options) {
@@ -82,19 +95,6 @@ function displayWaitingForPlayers() {
 }
 
 // generic
-
-function everyoneHasAnswered() {
-  let playerNames = document.querySelectorAll('[data-player]');
-  let everyoneAnswered = true;
-
-  playerNames.forEach((player) => {
-    if (player.dataset.playerAnswer == '') {
-      everyoneAnswered = false;
-    }
-  });
-
-  return everyoneAnswered;
-}
 
 function displayResults() {
   let correctOption = document.querySelector(`[data-option="${correctAnswer}"]`);

@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 2023_03_04_115051) do
     t.string "colour"
     t.string "avatar"
     t.datetime "time_taken_to_answer"
+    t.boolean "ready", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["room_id"], name: "index_players_on_room_id"

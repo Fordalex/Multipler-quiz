@@ -21,7 +21,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     received(data) {
 
-        console.log(data)
+      console.log(data)
+
+      playerJoinedSound.play();
 
       const userList = document.getElementById('userList');
       userList.innerHTML = '';

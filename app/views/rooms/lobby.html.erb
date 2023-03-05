@@ -36,4 +36,5 @@
 
 <script>
   let playerIconStyle = `<%= render partial: 'shared/player_large', locals: { player: OpenStruct.new(name: 'templateName', avatar: 'cool.png', colour: 'templateColour') } %>`
+  const playerJoinedSound = new Audio(`<%= audio_path 'join_lobby.flac' %>`);
 </script>

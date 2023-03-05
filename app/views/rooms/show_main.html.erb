@@ -28,7 +28,7 @@
 
   <div class="col-6">
     <h4>Question for <%= @room.questioner.name %></h4>
-    <h1><%= @question.question_for(@room.questioner.name) %></h1>
+    <h1 id="displayQuestion"><%= @question.question_for(@room.questioner.name) %></h1>
 
     <ul class="question-options" id="questionOptions"></ul>
   </div>
@@ -43,4 +43,5 @@
     const selectAnswerSound = new Audio(`<%= audio_path 'countdown.wav' %>`);
     const displayAnswersSound = new Audio(`<%= audio_path 'display_answers.wav' %>`);
     const getReadySound = new Audio(`<%= audio_path 'get_ready.wav' %>`);
+    const displayQuestionSound = new Audio(`<%= audio_path 'display_question.mp3' %>`);
 </script>

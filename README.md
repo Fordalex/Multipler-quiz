@@ -25,6 +25,7 @@ Things you may want to cover:
 
 ### Features left to implement
 
+Display on the players personal screen if they answered correctly or not, and display a 'Ready' button for the next question.
 Find player by ID and not their name, this can have issues.
 A player should get more points for answering faster.
 Display the time taken to answer the question.

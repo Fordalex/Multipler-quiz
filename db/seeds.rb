@@ -22,6 +22,7 @@ Room.destroy_all
 # ------ different logic -------
 # True or False questions.
 # Who is more likely to.
+# Three lies and a truth.
 
 # could just add a decoy integer to a question and the True and False should work without much effort.
 

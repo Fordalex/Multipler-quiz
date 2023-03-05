@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     get 'show_player'
     post 'question_options'
     post 'selected_answer'
+    post 'player_ready'
   end
 
   # get 'pages/index'

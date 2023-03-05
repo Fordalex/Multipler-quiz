@@ -2,6 +2,7 @@ require "rqrcode"
 
 class RoomsController < ApplicationController
   before_action :set_question, only: [:show_main]
+  before_action :set_room, only: [:show_main, :show_player, :question_options, :selected_answer, :player_ready]
 
   def new
     @room = Room.new
@@ -32,27 +33,16 @@ class RoomsController < ApplicationController
   end
 
   def show_main
-    @room_id = params[:room_id]
-    @room = Room.find_by(room_id: @room_id)
     @room.change_questioner
 
-    ActionCable.server.broadcast "room_channel_#{@room_id}", {
-      question: @question.question_for(@room.questioner.name),
-      options: @question.options,
-      questioner: @room.questioner.name,
-      action: 'start quiz',
-    }
+    start_quiz
   end
 
   def show_player
     @player = Player.find_by(id: session[:player_id])
-    @room_id = params[:room_id]
-    @room = Room.find_by(room_id: @room_id)
   end
 
   def question_options
-    @room_id = params[:room_id]
-    @room = Room.find_by(room_id: @room_id)
     @room.reset_players_answered
     @room.update(question_start_time: Time.now)
     @room.questioner.update(answer: params[:question_options].split(',').last)
@@ -72,8 +62,6 @@ class RoomsController < ApplicationController
   end
 
   def selected_answer
-    @room_id = params[:room_id]
-    @room = Room.find_by(room_id: @room_id)
     player_answered = @room.players.find_by(name: params[:player_answered])
     player_answered.update(answer: params[:selected_answer])
     time_taken_to_answer = Time.now - @room.question_start_time
@@ -85,7 +73,28 @@ class RoomsController < ApplicationController
       time_taken_to_answer: time_taken_to_answer,
       action: 'player answered'
     }
-    @room.give_points if @room.everyone_answered?
+    if @room.everyone_answered?
+      @room.give_points
+      ActionCable.server.broadcast "room_channel_#{@room_id}", {
+        action: 'everyone has answered',
+      }
+    end
+
+    return nil
+  end
+
+  def player_ready
+    player = @room.players.find_by(name: params[:player_ready])
+    player.update(ready: true)
+
+    ActionCable.server.broadcast "room_channel_#{@room_id}", {
+      player_ready: params[:player_ready],
+      action: 'player ready',
+    }
+
+    if @room.everyone_ready?
+      start_quiz
+    end
 
     return nil
   end
@@ -96,8 +105,25 @@ class RoomsController < ApplicationController
 
   private
 
+  def start_quiz
+    set_question
+    set_room
+    ActionCable.server.broadcast "room_channel_#{@room_id}", {
+      question: @question.question_for(@room.questioner.name),
+      options: @question.options,
+      questioner: @room.questioner.name,
+      action: 'start quiz',
+    }
+    @room.reset_players_ready_status
+  end
+
   def room_params
     params.require(:room).permit(:name, :room_id)
+  end
+
+  def set_room
+    @room_id = params[:room_id]
+    @room = Room.find_by(room_id: @room_id)
   end
 
   def set_question
