@@ -51,9 +51,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 function playerAnswered(data) {
   let player = document.querySelector(`[data-player="${data['player_answered']}"]`);
-  player.innerHTML = ` - ${parseFloat(data['time_taken_to_answer']).toFixed(3)}s'`;
+  let timeTaken = parseFloat(data['time_taken_to_answer']).toFixed(3)
+  player.innerHTML = ` - ${timeTaken}s'`;
   player.dataset.playerAnswer = data['selected_answer'];
-  player.dataset.timeTaken = data['time_taken_to_answer'];
+  player.dataset.timeTaken = timeTaken;
 
   // move this logic to the controller and add a new action instead.
   if (everyoneHasAnswered()) {
@@ -101,6 +102,6 @@ function displayResults() {
 
   let playerNames = document.querySelectorAll('[data-player]');
   playerNames.forEach((player) => {
-    player.innerHTML = ' - ' + player.dataset.playerAnswer;
+    player.innerHTML = ' - ' + player.dataset.playerAnswer + ' - ' + player.dataset.timeTaken + 's';
   });
 }
