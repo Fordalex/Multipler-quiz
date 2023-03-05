@@ -9,11 +9,6 @@
   background-color: #fff;
 }
 
-.qrcode-container p,
-.qrcode-container h5 {
-  text-align: center;
-}
-
 .qrcode-wrapper {
   display: flex;
   justify-content: center;
@@ -39,4 +34,16 @@
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
+}
+
+.lobby-roomName {
+  color: var(--text-gray);
+}
+
+.lobby-wrapper hr {
+  margin: 2.3rem 0;
+}
+
+.lobby-playersTitle {
+  margin-bottom: 2.5rem;
 }

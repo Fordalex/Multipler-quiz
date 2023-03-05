@@ -6,7 +6,7 @@
 
 .home-textContainer p {
   font-size: 1.1rem;
-  color: rgb(145, 145, 145);
+  color: var(--text-gray);
   margin-top: 0.5rem;
   margin-bottom: 2.2rem;
 }

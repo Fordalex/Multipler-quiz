@@ -7,19 +7,20 @@
 <div class="row lobby-container m-0 p-0">
   <div class="col-8 qrcode-container">
     <div>
-      <h5>Scan QR code</h5>
-      <p>Scan this QR code to join the lobby.</p>
+      <h4 class="text-center">Scan QR code</h4>
+      <p class="text-center">Scan this QR code to join the lobby.</p>
       <div class="qrcode-wrapper"><%= raw @QRCSVG %></div>
-      <p>--------- 0r ----------</p>
+      <p class="text-center">--------- 0r ----------</p>
       <p><%= @new_player_url %></p>
     </div>
   </div>
 
   <div class="col-4 lobby-wrapper">
-  <h1 class="text-center">Lobby</h1>
-  <h3 class="text-center"><%= @room.name %></h3>
+    <h1 class="text-center">Lobby</h1>
+    <h3 class="text-center lobby-roomName"><%= @room.name %></h3>
+    <hr>
     <div id="users">
-      <h3>Players</h3>
+      <h3 class="lobby-playersTitle">Players</h3>
       <div id="userList" class="lobby-playerList">
         <% @room.players.each do |player| %>
           <%= render partial: 'shared/player_large', locals: { player: player } %>
