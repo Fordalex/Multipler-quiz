@@ -28,8 +28,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
       let players_names = '';
       data['players'].forEach((player) => {
-        playerIconStyle.getElementById('playerName').innerHTML = player;
-        players_names += playerIconStyle;
+        let playerIcon = playerIconStyle.replace('templateName', player['name'])
+        playerIcon = playerIcon.replaceAll('templateColour', player['colour'])
+        playerIcon = playerIcon.replace(/cool-.+\.png/, player['avatar'])
+        console.log(playerIcon)
+        players_names += playerIcon;
       })
 
       userList.innerHTML = players_names;

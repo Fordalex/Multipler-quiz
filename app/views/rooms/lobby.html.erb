@@ -35,5 +35,5 @@
 </div>
 
 <script>
-  let playerIconStyle = `<%= render partial: 'shared/player_large', locals: { player: Player.last } %>`
+  let playerIconStyle = `<%= render partial: 'shared/player_large', locals: { player: OpenStruct.new(name: 'templateName', avatar: 'cool.png', colour: 'templateColour') } %>`
 </script>
