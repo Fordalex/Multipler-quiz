@@ -25,13 +25,16 @@ document.addEventListener("DOMContentLoaded", function(event) {
       console.log(data)
       let action = data['action'];
 
+      // TODO the action names are not very descriptive
       if (action == 'select answer') {
+        selectAnswerSound.play();
         correctAnswer = data['correct_answer'];
         displayOptions(data['question_options'].split(','));
         displayWaitingForPlayers();
       }
 
       if (action == 'player answered') {
+        playerAnsweredSound.play();
         playerAnswered(data)
       }
     }
@@ -46,7 +49,10 @@ function playerAnswered(data) {
   player.dataset.playerAnswer = data['selected_answer'];
   player.dataset.timeTaken = data['time_taken_to_answer'];
 
+  // move this logic to the controller and add a new action instead.
   if (everyoneHasAnswered()) {
+    selectAnswerSound.pause();
+    displayAnswersSound.play();
     displayResults();
   }
 }
