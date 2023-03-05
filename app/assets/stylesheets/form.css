@@ -1,0 +1,23 @@
+.form-container {
+  min-height: 95vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-container .form-wrapper {
+  padding: 2rem 3rem;
+  border-radius: var(--border-radius);
+  border: solid rgb(243, 243, 243) 1px;
+  background-color: #fff;
+  box-shadow: 0 8px 15px 0 #00000010;
+  width: 480px;
+}
+
+.form-container p {
+  color: var(--text-gray);
+}
+
+.form-container .btn-primary {
+  width: 100%;
+}
