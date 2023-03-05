@@ -34,7 +34,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
       }
 
       if (action == 'player answered') {
-        playerAnsweredSound.play();
+        var sound = document.getElementById("playerAnsweredSound");
+        var clone = sound.cloneNode();
+        clone.play();
         playerAnswered(data)
       }
 

@@ -34,8 +34,9 @@
   </div>
 </div>
 
-
-
+<div id="soundContainer">
+  <audio id="playerAnsweredSound" src="<%= audio_path 'question_answered.wav' %>"></audio>
+</div>
 
 <script>
     const playerAnsweredSound = new Audio(`<%= audio_path 'question_answered.wav' %>`);
