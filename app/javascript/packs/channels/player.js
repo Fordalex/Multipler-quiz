@@ -53,9 +53,13 @@ function startQuiz(data) {
   let question = document.getElementById('question');
   question.innerHTML = data['question'];
 
-  // clear question options
-  let questionOptions = document.getElementById('question_options');
-  questionOptions.value = '';
+  // clear correct answer
+  let correctAnswers = document.getElementById('correct_answer');
+  correctAnswers.value = '';
+
+  // clear incorrect answers
+  let incorrectAnswers = document.getElementById('incorrect_answers');
+  incorrectAnswers.value = '';
 
   clearDisplay();
 
@@ -151,7 +155,25 @@ function displayHUDMessage() {
     submitButton.classList.remove('d-none');
     return
   }
+}
 
+function updateCorrectAnswerOption(option) {
+  let questionOptions = document.getElementById('correct_answer');
+  questionOptions.value = option;
+}
+
+function updateIncorrectAnswerOption(option, action) {
+  let incorrect_answers = document.getElementById('incorrect_answers');
+  let options = incorrect_answers.value.split(',');
+
+  if (action == 'add') {
+    options.push(option);
+  } else {
+    let index = options.indexOf(option);
+    options.splice(index, 1);
+  }
+
+  incorrect_answers.value = options.join(',');
 }
 
 function addQuestionerOptionsEventListeners() {
@@ -169,6 +191,7 @@ function addQuestionerOptionsEventListeners() {
         if (option.classList.contains('selected-decoy')) {
           incorrectAnswers--;
           option.classList.remove('selected-decoy');
+          updateIncorrectAnswerOption(option.innerText, 'remove');
         }
       } else {
         // select option
@@ -177,9 +200,11 @@ function addQuestionerOptionsEventListeners() {
         if (!selectedCorrectAnswer) {
           selectedCorrectAnswer = true;
           option.classList.add('selected');
+          updateCorrectAnswerOption(option.innerText);
         } else {
           option.classList.add('selected-decoy');
           incorrectAnswers++;
+          updateIncorrectAnswerOption(option.innerText, 'add');
         }
       }
 

@@ -14,7 +14,7 @@
   <hr>
   <p data-player-hud-info="correct">Select the correct answer.</p>
   <p data-player-hud-info="incorrect" class="d-none">Now select <span id="playerHUDIncorrect">0</span> / 3 incorrect answers.</p>
-  <p data-player-hud-info="done" class="d-none">If you're happy press 'Done'</p>
+  <p data-player-hud-info="done" class="d-none">If you're happy press 'Done'.</p>
 </div>
 
 
@@ -24,7 +24,8 @@
 
 <div class="player-bottomHUD">
   <%= form_tag "/rooms/#{@room_id}/question_options", method: :post, remote: true do %>
-    <%= hidden_field_tag :question_options %>
+    <%= hidden_field_tag :correct_answer %>
+    <%= hidden_field_tag :incorrect_answers %>
     <%= submit_tag 'Done', id: 'questionerSubmitButton', class: 'btn btn-primary d-none w-100' %>
   <% end %>
 
