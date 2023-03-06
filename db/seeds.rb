@@ -40,7 +40,7 @@ FactoryBot.create(
 
 FactoryBot.create(
   :question,
-  question: "What is %{questioner}'s favourite color?",
+  question: "What is %{questioner}'s favourite colour?",
   options: "Red, Blue, Green, Yellow, Orange, Purple, Pink, Black, White, Grey, Brown, Navy, Teal, Maroon, Olive, Turquoise, Lavender, Magenta, Coral, Beige"
 )
 
@@ -232,7 +232,7 @@ FactoryBot.create(
 
 # FactoryBot.create(
 #   :question,
-#   question: "What is %{questioner}'s favorite color?",
+#   question: "What is %{questioner}'s favorite colour?",
 #   options: "Red, Blue, Green, Yellow, Orange, Purple, Pink, Brown, Gray, Black"
 # )
 
