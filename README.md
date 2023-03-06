@@ -34,3 +34,7 @@ A player should get more points for answering faster.
 Display the time taken to answer the question.
 A question needs to have a decoy count so true/false questions can be added.
 When creating a room a set number of rounds needs to be selected.
+
+### Acknowledgments
+
+https://uiverse.io/Nawsome/wet-mayfly-23

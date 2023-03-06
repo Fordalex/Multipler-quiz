@@ -3,19 +3,17 @@
 <% end %>
 <div id="roomId" data-room-id="<%= @room_id %>"></div>
 
-<div id="waitingMessage" class="player-waitingContainer">
-  <%= image_tag 'illustrations/waiting.svg' %>
-  <h3 class="text-center mt-3"><%= @room.name %></h3>
-  <p class="text-center">Waiting for the quiz to start.</p>
-</div>
+<%= render partial: 'waiting' %>
+
+<%# TODO: hide the waiting container and then display everything else when the quiz starts. %>
 
 <div id="playersName" class="d-none"><%= @player.name %></div>
 
-<h4 id="question"></h4>
+<h4 id="question" class="m-0"></h4>
 
-<p id="messageContainer"></p>
+<p id="messageContainer" class="m-0"></p>
 
-<ul class="question-options" id="questionOptions"></ul>
+<ul class="question-options m-0 p-0" id="questionOptions"></ul>
 
 
 <%= form_tag "/rooms/#{@room_id}/question_options", method: :post, remote: true do %>
