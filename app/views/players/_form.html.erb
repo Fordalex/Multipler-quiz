@@ -30,20 +30,23 @@
 
       <div class="col-12">
         <%= form.label :colour, :colour %>
-        <%= form.color_field :colour, class: "form-control" %>
         <div class="colour-pickerContainer">
           <% Player::COLOURS.each do |colour| %>
-            <div class="colour-picker" style="background-color: <%= colour %>;"></div>
+            <label class="colour-picker" style="background-color: <%= colour %>;">
+              <input type="radio" value="<%= colour %>" name="player[colour]">
+            </label>
           <% end %>
         </div>
       </div>
 
       <div class="col-12">
         <%= form.label :avatar, :avatar %>
-        <%= form.select :avatar, options_for_select(['cold.png', 'cool.png', 'depression.png', 'embarrassed.png', 'emoji.png', 'fire.png', 'funny.png', 'laugh.png', 'smile.png']), class: "form-control" %>
         <div class="avatar-pickerContainer">
           <% Player::AVATARS.each do |avatar| %>
-            <%= image_tag "profile/#{avatar}", class: "avatar-picker" %>
+            <label for="avatarPicker">
+              <%= image_tag "profile/#{avatar}", class: "avatar-picker"%>
+              <input type="radio" value="<%= avatar %>" name="player[avatar]" id="avatarPicker">
+            </label>
           <% end %>
         </div>
       </div>
