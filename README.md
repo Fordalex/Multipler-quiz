@@ -25,10 +25,8 @@ Things you may want to cover:
 
 ### Features left to implement
 
-Add style to the waiting page.
-Add preset colours and icons to the player form for a better UX.
-Options should only be able to be seleted once, if selected again this should unselect the option.
-Display on the players personal screen if they answered correctly or not, and display a 'Ready' button for the next question.
+A questioner should be able to add custom options.
+Display on the players personal screen if they answered correctly or not, add the happy and sad illustrations.
 Find player by ID and not their name, this can have issues.
 A player should get more points for answering faster.
 Display the time taken to answer the question.
