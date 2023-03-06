@@ -1,14 +1,15 @@
 <% content_for :channels do %>
   <%= javascript_pack_tag 'channels/player' %>
 <% end %>
-
-<h3 class="text-center"><%= @room.name %></h3>
-
-<p>Name: <span id="playersName"><%= @player.name %></span></p>
-
 <div id="roomId" data-room-id="<%= @room_id %>"></div>
 
-<h5 id="waitingMessage">Waiting for the quiz to start.</h5>
+<div id="waitingMessage" class="player-waitingContainer">
+  <%= image_tag 'illustrations/waiting.svg' %>
+  <h3 class="text-center mt-3"><%= @room.name %></h3>
+  <p class="text-center">Waiting for the quiz to start.</p>
+</div>
+
+<div id="playersName" class="d-none"><%= @player.name %></div>
 
 <h4 id="question"></h4>
 
