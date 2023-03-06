@@ -7,10 +7,14 @@ let playersName;
 let questioner = false;
 let selectedCorrectAnswer = false;
 let incorrectAnswers = 0;
+let action;
 
 document.addEventListener("DOMContentLoaded", function (event) {
   playersName = document.getElementById('playersName').innerText;
   const room_id = document.getElementById('roomId').dataset.roomId;
+  // TODO need to be able to setupQuiz() for here to allow users to refresh their page.
+  // The problem is that there will be no data to pass into the function.
+  // Maybe store this information in the database and then pull it out when the page loads?
 
   consumer.subscriptions.create({
       channel: "RoomChannel",
@@ -28,54 +32,51 @@ document.addEventListener("DOMContentLoaded", function (event) {
     received(data) {
       console.log(data)
 
-      let action = data['action'];
-
-      if (action == 'start quiz') {
-        questioner = (playersName == data['questioner']);
-        startQuiz(data);
-      }
-
-      if (action == 'select answer') {
-        selectAnswer(data);
-      }
-
-      if (action == 'everyone has answered') {
-        clearDisplay();
-        HUDDisplayInfo('confirm ready')
-        displayReadyButton();
-      }
+      action = data['action'];
+      setupQuiz(data);
     }
   });
 });
 
-// life cycle
+function setupQuiz(data) {
+  if (action == 'start quiz') {
+    questioner = (playersName == data['questioner']);
+    startQuiz(data);
+  }
+
+  if (action == 'select answer') {
+    selectAnswer(data);
+  }
+
+  if (action == 'everyone has answered') {
+    clearDisplay();
+    HUDDisplayInfo('confirm ready')
+    displayReadyButton();
+  }
+}
 
 function startQuiz(data) {
   let waitingMessage = document.getElementById('waitingMessage');
   if (waitingMessage) { waitingMessage.remove() }
 
   // set current question
-  displayCurrentQuestion(data);
+  displayCurrentQuestion(data['question']);
 
-  // clear correct answer
-  let correctAnswers = document.getElementById('correct_answer');
-  correctAnswers.value = '';
-
-  // clear incorrect answers
-  let incorrectAnswers = document.getElementById('incorrect_answers');
-  incorrectAnswers.value = '';
+  // clear answers in inputs
+  document.getElementById('correct_answer').value = '';
+  document.getElementById('incorrect_answers').value = '';
 
   clearDisplay();
   setupPlayers(data);
 }
 
-function displayCurrentQuestion(data) {
-  let question = document.getElementById('question');
+function displayCurrentQuestion(question) {
+  let questionElement = document.getElementById('question');
 
   if (questioner) {
-    question.innerHTML = data['question'].replace(`${playersName}'s`, 'your');
+    questionElement.innerHTML = question.replace(`${playersName}'s`, 'your');
   } else {
-    question.innerHTML = data['question'];
+    questionElement.innerHTML = question;
   }
 }
 
@@ -83,8 +84,7 @@ function selectAnswer(data) {
   clearDisplay();
 
   if (questioner) {
-    let questionOptions = document.getElementById('questionOptions');
-    questionOptions.innerHTML = '';
+    document.getElementById('questionOptions').innerHTML = '';
     HUDDisplayInfo('wait for players to answer')
   } else {
     HUDDisplayInfo('select your answer')
@@ -100,25 +100,19 @@ function clearDisplay() {
 
   selectedCorrectAnswer = false;
   incorrectAnswers = 0;
-  // clear message container
-  let messageContainer = document.getElementById('messageContainer');
-  messageContainer.innerHTML = '';
 
   // clear question options
-  let questionOptions = document.getElementById('questionOptions');
-  questionOptions.innerHTML = '';
+  document.getElementById('questionOptions').innerHTML = '';
 
+  // TODO: create a function to display the correct submit button.
   // hide questioner submit button
-  let questionerSubmitButton = document.getElementById('questionerSubmitButton');
-  questionerSubmitButton.classList.add('d-none');
+  document.getElementById('questionerSubmitButton').classList.add('d-none');
 
   // hide answerer submit button
-  let answererSubmitButton = document.getElementById('answererSubmitButton');
-  answererSubmitButton.classList.add('d-none');
+  document.getElementById('answererSubmitButton').classList.add('d-none');
 
   // hide ready button
-  let readyButton = document.getElementById('playerReadyButton');
-  readyButton.classList.add('d-none');
+  document.getElementById('playerReadyButton').classList.add('d-none');
 
   updateHUD();
 }
@@ -143,17 +137,13 @@ function setupPlayers(data) {
   if (questioner) {
     setupQuestioner(data);
   } else {
-    setupAnswerer();
+    HUDDisplayInfo('waiting for options to be selected');
   }
 }
 
 function setupQuestioner(data) {
   displayOptions(data['options'].split(','));
   addQuestionerOptionsEventListeners();
-}
-
-function setupAnswerer() {
-  HUDDisplayInfo('waiting for options to be selected');
 }
 
 function updateHUD() {
@@ -163,12 +153,8 @@ function updateHUD() {
   if (questioner) {
     displayQuestionerHUD();
   } else {
-    displayAnswerersHUD();
+    HUDDisplayInfo('waiting for options to be selected');
   }
-}
-
-function displayAnswerersHUD() {
-  HUDDisplayInfo('waiting for options to be selected');
 }
 
 function displayQuestionerHUD() {
@@ -205,11 +191,11 @@ function updateCorrectAnswerOption(option) {
   questionOptions.value = option;
 }
 
-function updateIncorrectAnswerOption(option, action) {
+function updateIncorrectAnswerOption(option, control) {
   let incorrect_answers = document.getElementById('incorrect_answers');
   let options = incorrect_answers.value.split(',');
 
-  if (action == 'add') {
+  if (control == 'add') {
     options.push(option);
   } else {
     let index = options.indexOf(option);
