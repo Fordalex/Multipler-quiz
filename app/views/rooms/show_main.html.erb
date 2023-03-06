@@ -2,34 +2,25 @@
   <%= javascript_pack_tag 'channels/main' %>
 <% end %>
 
-<h1 class="text-center">How well do you know each other?</h1>
-<h4 class="text-center"><%= @room.name %></h4>
+<h1 class="text-center mt-4"><%= @room.name.titleize %></h1>
 
 <div id="roomId" data-room-id="<%= @room_id %>"></div>
 
 <div class="row">
-  <div class="col-6">
-    <h3>Score board</h3>
-    <div class="score-board">
-      <% @room.player_positions.each_with_index do |player, index| %>
-        <%= render partial: 'shared/player_large', locals: { player: player, position: index + 1 } %>
-      <% end %>
-    </div>
-
+  <div class="col-3 p-5 pe-0">
     <div id="users">
-      <h3>Answering</h3>
-      <ul id="playerList">
-        <% @room.answerers.each do |player| %>
+      <h2>Players</h2>
+      <ul id="playerList" class="p-0">
+        <% @room.player_positions.each do |player| %>
           <%= render partial: 'shared/player_small', locals: { player: player } %>
         <% end %>
       </ul>
     </div>
   </div>
 
-  <div class="col-6">
-    <h4>Question for <%= @room.questioner.name %></h4>
-    <h1 id="displayQuestion"><%= @question.question_for(@room.questioner.name) %></h1>
-
+  <div class="col-9 p-5">
+    <%= render partial: 'shared/player_large', locals: { player: @room.questioner } %>
+    <h2 id="displayQuestion" class="text-center mt-3"><%= @question.question_for(@room.questioner.name) %></h2>
     <ul class="question-options" id="questionOptions"></ul>
   </div>
 </div>
