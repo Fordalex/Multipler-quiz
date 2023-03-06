@@ -7,20 +7,25 @@
 
 <%# TODO: hide the waiting container and then display everything else when the quiz starts. %>
 
-<div id="playersName" class="d-none"><%= @player.name %></div>
 
 <div class="player-topHUD">
+  <small id="playersName"><%= @player.name.capitalize %></small>
   <h4 id="question" class="m-0"></h4>
   <hr>
-  <p data-player-hud-info="correct">Select the correct answer.</p>
+  <p data-player-hud-info="correct" class="d-none">Select the correct answer.</p>
   <p data-player-hud-info="incorrect" class="d-none">Now select <span id="playerHUDIncorrect">0</span> / 3 incorrect answers.</p>
   <p data-player-hud-info="done" class="d-none">If you're happy press 'Done'.</p>
+  <p data-player-hud-info="waiting for options to be selected" class="d-none">Waiting for the options to be selected.</p>
+  <p data-player-hud-info="confirm ready" class="d-none">Press ready to start the next question.</p>
+  <p data-player-hud-info="ready" class="d-none">Waiting for other players to get ready.</p>
+  <p data-player-hud-info="select your answer" class="d-none">Quick! Select your answer!</p>
+  <p data-player-hud-info="wait for players to answer" class="d-none">Wait for players to answer.</p>
 </div>
 
 
 <p id="messageContainer" class="m-0"></p>
 
-<ul class="question-options m-0" id="questionOptions"></ul>
+<ul class="question-options m-0 pt-2 pb-5" id="questionOptions"></ul>
 
 <div class="player-bottomHUD">
   <%= form_tag "/rooms/#{@room_id}/question_options", method: :post, remote: true do %>

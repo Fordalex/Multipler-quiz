@@ -4,10 +4,12 @@
 import consumer from "../../channels/consumer"
 
 let playersName;
+let questioner = false;
+let selectedCorrectAnswer = false;
+let incorrectAnswers = 0;
 
 document.addEventListener("DOMContentLoaded", function (event) {
   playersName = document.getElementById('playersName').innerText;
-
   const room_id = document.getElementById('roomId').dataset.roomId;
 
   consumer.subscriptions.create({
@@ -25,9 +27,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     received(data) {
       console.log(data)
+
       let action = data['action'];
 
       if (action == 'start quiz') {
+        questioner = (playersName == data['questioner']);
         startQuiz(data);
       }
 
@@ -37,6 +41,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
       if (action == 'everyone has answered') {
         clearDisplay();
+        HUDDisplayInfo('confirm ready')
         displayReadyButton();
       }
     }
@@ -50,8 +55,7 @@ function startQuiz(data) {
   if (waitingMessage) { waitingMessage.remove() }
 
   // set current question
-  let question = document.getElementById('question');
-  question.innerHTML = data['question'];
+  displayCurrentQuestion(data);
 
   // clear correct answer
   let correctAnswers = document.getElementById('correct_answer');
@@ -62,22 +66,28 @@ function startQuiz(data) {
   incorrectAnswers.value = '';
 
   clearDisplay();
+  setupPlayers(data);
+}
 
-  // set up player
-  if (playersName == data['questioner']) {
-    setupQuestioner(data)
+function displayCurrentQuestion(data) {
+  let question = document.getElementById('question');
+
+  if (questioner) {
+    question.innerHTML = data['question'].replace(`${playersName}'s`, 'your');
   } else {
-    setupAnswerer(data)
+    question.innerHTML = data['question'];
   }
 }
 
 function selectAnswer(data) {
   clearDisplay();
 
-  if (playersName == data['questioner']) {
+  if (questioner) {
     let questionOptions = document.getElementById('questionOptions');
     questionOptions.innerHTML = '';
+    HUDDisplayInfo('wait for players to answer')
   } else {
+    HUDDisplayInfo('select your answer')
     displayOptions(data['question_options'].split(','));
     addAnswererOptionsEventListeners();
   }
@@ -86,6 +96,10 @@ function selectAnswer(data) {
 // generic
 
 function clearDisplay() {
+  // TODO: I think this can get removed soon.
+
+  selectedCorrectAnswer = false;
+  incorrectAnswers = 0;
   // clear message container
   let messageContainer = document.getElementById('messageContainer');
   messageContainer.innerHTML = '';
@@ -105,6 +119,8 @@ function clearDisplay() {
   // hide ready button
   let readyButton = document.getElementById('playerReadyButton');
   readyButton.classList.add('d-none');
+
+  updateHUD();
 }
 
 function displayReadyButton() {
@@ -123,38 +139,65 @@ function displayOptions(options) {
 
 // questioner
 
+function setupPlayers(data) {
+  if (questioner) {
+    setupQuestioner(data);
+  } else {
+    setupAnswerer();
+  }
+}
+
 function setupQuestioner(data) {
   displayOptions(data['options'].split(','));
   addQuestionerOptionsEventListeners();
 }
 
-let selectedCorrectAnswer = false;
-let incorrectAnswers = 0;
+function setupAnswerer() {
+  HUDDisplayInfo('waiting for options to be selected');
+}
 
-function displayHUDMessage() {
+function updateHUD() {
   let HUDMessages = document.querySelectorAll('[data-player-hud-info]');
   HUDMessages.forEach((m) => { m.classList.add('d-none') });
+
+  if (questioner) {
+    displayQuestionerHUD();
+  } else {
+    displayAnswerersHUD();
+  }
+}
+
+function displayAnswerersHUD() {
+  HUDDisplayInfo('waiting for options to be selected');
+}
+
+function displayQuestionerHUD() {
   let submitButton = document.getElementById('questionerSubmitButton');
   submitButton.classList.add('d-none');
 
   if (selectedCorrectAnswer == false) {
-    let correctAnswerHUD = document.querySelector('[data-player-hud-info=correct]');
-    correctAnswerHUD.classList.remove('d-none');
+    HUDDisplayInfo('correct');
     return
   }
 
   if (incorrectAnswers < 3) {
-    let incorrectAnswerHUD = document.querySelector('[data-player-hud-info=incorrect]');
-    incorrectAnswerHUD.classList.remove('d-none');
+    HUDDisplayInfo('incorrect');
     return
   }
 
   if (selectedCorrectAnswer == true && incorrectAnswers == 3) {
-    let doneHUD = document.querySelector('[data-player-hud-info=done]');
-    doneHUD.classList.remove('d-none');
+    HUDDisplayInfo('done');
     submitButton.classList.remove('d-none');
     return
   }
+}
+
+function HUDDisplayInfo(message) {
+  let HUDMessages = document.querySelectorAll('[data-player-hud-info]');
+  HUDMessages.forEach((m) => { m.classList.add('d-none') });
+
+  let HUDMessage = document.querySelector(`[data-player-hud-info="${message}"]`);
+  HUDMessage.classList.remove('d-none');
 }
 
 function updateCorrectAnswerOption(option) {
@@ -210,53 +253,12 @@ function addQuestionerOptionsEventListeners() {
 
       let playerHUDIncorrect = document.getElementById('playerHUDIncorrect');
       playerHUDIncorrect.innerHTML = incorrectAnswers;
-      displayHUDMessage();
-
-      // TODO selecting the correct answer and the incorrect answers should be separate.
-
-      // if (option.classList.contains('selected') || option.classList.contains('selected-decoy')) {
-      //   selected--;
-      //   option.classList.remove('selected');
-      //   option.classList.remove('selected-decoy');
-      //   // TODO remove from question_options input
-      // } else {
-      //   selected++;
-      //   let questionOptionsInput = document.getElementById('question_options');
-
-      //   if (selected == 1) {
-      //     let correctAnswerHUD = document.querySelector('[data-player-hud-info=correct]');
-      //     correctAnswerHUD.classList.add('d-none');
-
-      //     let incorrectAnswerHUD = document.querySelector('[data-player-hud-info=incorrect]');
-      //     incorrectAnswerHUD.classList.remove('d-none');
-
-      //     option.classList.add('selected');
-      //     questionOptionsInput.value = questionOptionsInput.value + option.innerText + ',';
-      //   }
-
-      //   if (selected > 1 && selected < 4) {
-      //     option.classList.add('selected-decoy');
-      //     questionOptionsInput.value = questionOptionsInput.value + option.innerText + ',';
-
-      //   } else if (selected == 4) {
-      //     option.classList.add('selected-decoy');
-      //     questionOptionsInput.value = questionOptionsInput.value + option.innerText
-      //     let submitButton = document.getElementById('questionerSubmitButton');
-      //     submitButton.classList.remove('d-none');
-      //   }
-      // }
-
-      // updateHUD(selected);
+      updateHUD();
     });
   });
 }
 
 // answerer
-
-function setupAnswerer(data) {
-  let messageContainer = document.getElementById('messageContainer');
-  messageContainer.innerHTML = `Waiting for ${data['questioner']} to select the options.`;
-}
 
 function addAnswererOptionsEventListeners() {
   let options = document.querySelectorAll('#questionOptions li');
