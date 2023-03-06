@@ -11,12 +11,10 @@
 
 <div class="player-topHUD">
   <h4 id="question" class="m-0"></h4>
-  <p>Select the correct answer first and then select 3 incorrect answers.</p>
   <hr>
-  <div class="d-flex justify-content-between">
-    <div id="player-hudAnswer">Answer - 0 / 1</div>
-    <div id="player-hudDecoy">Incorrect - 0 / 3</div>
-  </div>
+  <p data-player-hud-info="correct">Select the correct answer.</p>
+  <p data-player-hud-info="incorrect" class="d-none">Now select <span id="playerHUDIncorrect">0</span> / 3 incorrect answers.</p>
+  <p data-player-hud-info="done" class="d-none">If you're happy press 'Done'</p>
 </div>
 
 

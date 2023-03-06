@@ -20,7 +20,7 @@ body {
 }
 
 .question-options .selected-decoy {
-  background-color: #fbc061;
+  background-color: #fb8361;
 }
 
 .question-options .correct {
@@ -132,6 +132,10 @@ body {
   background-color: #fff;
   border-bottom: solid #d3d3d3 1px;
   box-shadow: 0 4px 10px 1px #00000010;
+}
+
+.player-topHUD p {
+  margin: 0;
 }
 
 .player-bottomHUD {

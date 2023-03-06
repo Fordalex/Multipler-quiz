@@ -108,13 +108,6 @@ function displayReadyButton() {
   readyButton.classList.remove('d-none');
 }
 
-// questioner
-
-function setupQuestioner(data) {
-  displayOptions(data['options'].split(','));
-  addQuestionerOptionsEventListeners();
-}
-
 function displayOptions(options) {
   let questionOptions = document.getElementById('questionOptions');
   options = options.map((option) => {
@@ -124,25 +117,111 @@ function displayOptions(options) {
   questionOptions.innerHTML = options;
 }
 
+// questioner
+
+function setupQuestioner(data) {
+  displayOptions(data['options'].split(','));
+  addQuestionerOptionsEventListeners();
+}
+
+let selectedCorrectAnswer = false;
+let incorrectAnswers = 0;
+
+function displayHUDMessage() {
+  let HUDMessages = document.querySelectorAll('[data-player-hud-info]');
+  HUDMessages.forEach((m) => { m.classList.add('d-none') });
+  let submitButton = document.getElementById('questionerSubmitButton');
+  submitButton.classList.add('d-none');
+
+  if (selectedCorrectAnswer == false) {
+    let correctAnswerHUD = document.querySelector('[data-player-hud-info=correct]');
+    correctAnswerHUD.classList.remove('d-none');
+    return
+  }
+
+  if (incorrectAnswers < 3) {
+    let incorrectAnswerHUD = document.querySelector('[data-player-hud-info=incorrect]');
+    incorrectAnswerHUD.classList.remove('d-none');
+    return
+  }
+
+  if (selectedCorrectAnswer == true && incorrectAnswers == 3) {
+    let doneHUD = document.querySelector('[data-player-hud-info=done]');
+    doneHUD.classList.remove('d-none');
+    submitButton.classList.remove('d-none');
+    return
+  }
+
+}
+
 function addQuestionerOptionsEventListeners() {
-  let selected = 0;
   let options = document.querySelectorAll('#questionOptions li');
 
   options.forEach((option) => {
     option.addEventListener('click', (e) => {
-      selected++;
-      let questionOptionsInput = document.getElementById('question_options');
+      // deselect option
+      if (option.classList.contains('selected') || option.classList.contains('selected-decoy')) {
+        if (option.classList.contains('selected')) {
+          selectedCorrectAnswer = false;
+          option.classList.remove('selected');
+        }
 
-      if (selected <= 3) {
-        option.classList.add('selected-decoy');
-        questionOptionsInput.value = questionOptionsInput.value + option.innerText + ',';
+        if (option.classList.contains('selected-decoy')) {
+          incorrectAnswers--;
+          option.classList.remove('selected-decoy');
+        }
+      } else {
+        // select option
+        if (selectedCorrectAnswer == true && incorrectAnswers == 3) { return }
 
-      } else if (selected == 4) {
-        option.classList.add('selected');
-        questionOptionsInput.value = questionOptionsInput.value + option.innerText
-        let submitButton = document.getElementById('questionerSubmitButton');
-        submitButton.classList.remove('d-none');
+        if (!selectedCorrectAnswer) {
+          selectedCorrectAnswer = true;
+          option.classList.add('selected');
+        } else {
+          option.classList.add('selected-decoy');
+          incorrectAnswers++;
+        }
       }
+
+      let playerHUDIncorrect = document.getElementById('playerHUDIncorrect');
+      playerHUDIncorrect.innerHTML = incorrectAnswers;
+      displayHUDMessage();
+
+      // TODO selecting the correct answer and the incorrect answers should be separate.
+
+      // if (option.classList.contains('selected') || option.classList.contains('selected-decoy')) {
+      //   selected--;
+      //   option.classList.remove('selected');
+      //   option.classList.remove('selected-decoy');
+      //   // TODO remove from question_options input
+      // } else {
+      //   selected++;
+      //   let questionOptionsInput = document.getElementById('question_options');
+
+      //   if (selected == 1) {
+      //     let correctAnswerHUD = document.querySelector('[data-player-hud-info=correct]');
+      //     correctAnswerHUD.classList.add('d-none');
+
+      //     let incorrectAnswerHUD = document.querySelector('[data-player-hud-info=incorrect]');
+      //     incorrectAnswerHUD.classList.remove('d-none');
+
+      //     option.classList.add('selected');
+      //     questionOptionsInput.value = questionOptionsInput.value + option.innerText + ',';
+      //   }
+
+      //   if (selected > 1 && selected < 4) {
+      //     option.classList.add('selected-decoy');
+      //     questionOptionsInput.value = questionOptionsInput.value + option.innerText + ',';
+
+      //   } else if (selected == 4) {
+      //     option.classList.add('selected-decoy');
+      //     questionOptionsInput.value = questionOptionsInput.value + option.innerText
+      //     let submitButton = document.getElementById('questionerSubmitButton');
+      //     submitButton.classList.remove('d-none');
+      //   }
+      // }
+
+      // updateHUD(selected);
     });
   });
 }

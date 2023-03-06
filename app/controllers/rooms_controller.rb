@@ -45,7 +45,8 @@ class RoomsController < ApplicationController
   def question_options
     @room.reset_players_answered
     @room.update(question_start_time: Time.now)
-    @room.questioner.update(answer: params[:question_options].split(',').last)
+    # TODO this it would be better is send the correct answer and incorrect answers separately
+    @room.questioner.update(answer: params[:question_options].split(',').first)
     random_order_options = params[:question_options].split(',').shuffle.join(',')
 
     ActionCable.server.broadcast "room_channel_#{@room_id}", {
