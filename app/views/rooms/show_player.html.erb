@@ -9,25 +9,35 @@
 
 <div id="playersName" class="d-none"><%= @player.name %></div>
 
-<h4 id="question" class="m-0"></h4>
+<div class="player-topHUD">
+  <h4 id="question" class="m-0"></h4>
+  <p>Select the correct answer first and then select 3 incorrect answers.</p>
+  <hr>
+  <div class="d-flex justify-content-between">
+    <div id="player-hudAnswer">Answer - 0 / 1</div>
+    <div id="player-hudDecoy">Incorrect - 0 / 3</div>
+  </div>
+</div>
+
 
 <p id="messageContainer" class="m-0"></p>
 
-<ul class="question-options m-0 p-0" id="questionOptions"></ul>
+<ul class="question-options m-0" id="questionOptions"></ul>
 
+<div class="player-bottomHUD">
+  <%= form_tag "/rooms/#{@room_id}/question_options", method: :post, remote: true do %>
+    <%= hidden_field_tag :question_options %>
+    <%= submit_tag 'Done', id: 'questionerSubmitButton', class: 'btn btn-primary d-none w-100' %>
+  <% end %>
 
-<%= form_tag "/rooms/#{@room_id}/question_options", method: :post, remote: true do %>
-  <%= hidden_field_tag :question_options %>
-  <%= submit_tag 'Done', id: 'questionerSubmitButton', class: 'btn btn-primary d-none' %>
-<% end %>
+  <%= form_tag "/rooms/#{@room_id}/selected_answer", method: :post, remote: true do %>
+    <%= hidden_field_tag :selected_answer %>
+    <%= hidden_field_tag :player_answered, @player.name %>
+    <%= submit_tag 'Answer', id: 'answererSubmitButton', class: 'btn btn-primary d-none w-100' %>
+  <% end %>
 
-<%= form_tag "/rooms/#{@room_id}/selected_answer", method: :post, remote: true do %>
-  <%= hidden_field_tag :selected_answer %>
-  <%= hidden_field_tag :player_answered, @player.name %>
-  <%= submit_tag 'Answer', id: 'answererSubmitButton', class: 'btn btn-primary d-none' %>
-<% end %>
-
-<%= form_tag "/rooms/#{@room_id}/player_ready", method: :post, remote: true do %>
-  <%= hidden_field_tag :player_ready, @player.name %>
-  <%= submit_tag 'Ready', id: 'playerReadyButton', class: 'btn btn-primary d-none' %>
-<% end %>
+  <%= form_tag "/rooms/#{@room_id}/player_ready", method: :post, remote: true do %>
+    <%= hidden_field_tag :player_ready, @player.name %>
+    <%= submit_tag 'Ready', id: 'playerReadyButton', class: 'btn btn-primary d-none w-100' %>
+  <% end %>
+</div>
