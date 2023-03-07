@@ -21,7 +21,7 @@
   <div class="col-9 p-5">
     <%= render partial: 'shared/player_large', locals: { player: @room.questioner } %>
     <h2 id="displayQuestion" class="text-center mt-3"><%= @question.question_for(@room.questioner.name) %></h2>
-    <ul class="question-options" id="questionOptions"></ul>
+    <ul class="question-options question-optionsMain" id="questionOptions"></ul>
   </div>
 </div>
 

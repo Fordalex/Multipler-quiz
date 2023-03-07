@@ -71,6 +71,7 @@ class RoomsController < ApplicationController
       player_answered: params[:player_answered],
       selected_answer: params[:selected_answer],
       time_taken_to_answer: time_taken_to_answer,
+      colour: player_answered.colour,
       action: 'player answered'
     }
     if @room.everyone_answered?

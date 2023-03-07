@@ -52,6 +52,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
       }
 
       if (action == 'start quiz') {
+        playersAnswers = [];
         displayQuestionSound.play();
         setupTheQuestion(data);
       }
@@ -69,18 +70,28 @@ function setupTheQuestion(data) {
   questionOptions.innerHTML = '';
 }
 
+let playersAnswers = [];
+
 function playerAnswered(data) {
   let player = document.querySelector(`[data-player="${data['player_answered']}"]`);
   let timeTaken = parseFloat(data['time_taken_to_answer']).toFixed(3)
   player.innerHTML = ` - ${timeTaken}s'`;
   player.dataset.playerAnswer = data['selected_answer'];
   player.dataset.timeTaken = timeTaken;
+
+  let playersAnswerInfo = {
+    name: data['player_answered'],
+    answer: data['selected_answer'],
+    time: timeTaken,
+    colour: data['colour']
+  }
+  playersAnswers.push(playersAnswerInfo);
 }
 
 function displayOptions(options) {
   let questionOptions = document.getElementById('questionOptions');
   options = options.map((option) => {
-    return `<li data-option="${option}">${option}</li>`
+    return `<div class="option-container"><li data-option="${option}">${option}</li></div>`
   }).join('')
 
   questionOptions.innerHTML = options;
@@ -103,5 +114,15 @@ function displayResults() {
   let playerNames = document.querySelectorAll('[data-player]');
   playerNames.forEach((player) => {
     player.innerHTML = ' - ' + player.dataset.playerAnswer + ' - ' + player.dataset.timeTaken + 's';
+  });
+
+  playersAnswers.forEach((player) => {
+    let option = document.querySelector(`[data-option="${player['answer']}"]`);
+    let playerInfo = `
+      <div class='answered-playerInfo' style='background-color:${player['colour']};'>
+        <p>${player['name']}</p>
+      </div>`
+    ;
+    option.insertAdjacentHTML("afterend", playerInfo);
   });
 }

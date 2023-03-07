@@ -26,3 +26,28 @@
   max-width: 1200px;
   margin: 0 auto;
 }
+
+.option-container {
+  position: relative;
+}
+
+.answered-playerInfo {
+  position: absolute;
+  bottom: -1.5rem;
+  z-index: 50;
+  border-radius: 4rem;
+  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+}
+
+.answered-playerInfo p {
+  margin: 0;
+}
+
+.question-optionsMain li {
+  margin-bottom: 2.5rem;
+  font-size: 1.5rem;
+}
