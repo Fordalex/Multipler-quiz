@@ -6,6 +6,7 @@ import consumer from "../../channels/consumer"
 let playersName;
 let questioner = false;
 let selectedCorrectAnswer = false;
+let incorrectAnswersQuestionLimit = 0;
 let incorrectAnswers = 0;
 let action;
 
@@ -65,6 +66,11 @@ function startQuiz(data) {
   // clear answers in inputs
   document.getElementById('correct_answer').value = '';
   document.getElementById('incorrect_answers').value = '';
+
+  // set incorrect answers limit
+  let incorrectAnswerLimit = document.getElementById('playerHUDIncorrectLimit');
+  incorrectAnswersQuestionLimit = data['incorrect_answer_limit'];
+  incorrectAnswerLimit.innerHTML = incorrectAnswersQuestionLimit
 
   clearDisplay();
   setupPlayers(data);
@@ -166,12 +172,12 @@ function displayQuestionerHUD() {
     return
   }
 
-  if (incorrectAnswers < 3) {
+  if (incorrectAnswers < incorrectAnswersQuestionLimit) {
     HUDDisplayInfo('incorrect');
     return
   }
 
-  if (selectedCorrectAnswer == true && incorrectAnswers == 3) {
+  if (selectedCorrectAnswer == true && incorrectAnswers == incorrectAnswersQuestionLimit) {
     HUDDisplayInfo('done');
     submitButton.classList.remove('d-none');
     return
@@ -224,7 +230,7 @@ function addQuestionerOptionsEventListeners() {
         }
       } else {
         // select option
-        if (selectedCorrectAnswer == true && incorrectAnswers == 3) { return }
+        if (selectedCorrectAnswer == true && incorrectAnswers == incorrectAnswersQuestionLimit) { return }
 
         if (!selectedCorrectAnswer) {
           selectedCorrectAnswer = true;

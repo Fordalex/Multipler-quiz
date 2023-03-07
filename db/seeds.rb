@@ -59,7 +59,7 @@ FactoryBot.create(
 FactoryBot.create(
   :question,
   question: "What statement is true about %{questioner}",
-  options: "They love to watch movies, They have a fear of snakes, They have a passion for history, They have a degree in a social science field, They have never been skiing, They have a favorite TV show, They have a talent for solving puzzles, They have a fear of germs, They have never been to a theme park"
+  options: "They love to watch movies, They have a fear of snakes, They have a passion for history, They have a degree in a social science field, They have never been skiing, They have a favorite TV show, They have a talent for solving puzzles, They have a fear of germs, They have never been to a theme park",
   incorrect_answers: 3,
 )
 

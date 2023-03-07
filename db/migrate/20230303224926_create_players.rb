@@ -10,7 +10,6 @@ class CreatePlayers < ActiveRecord::Migration[6.1]
       t.string :avatar
       t.datetime :time_taken_to_answer
       t.boolean :ready, default: false
-      t.integer :incorrect_answers, default: 1
 
       t.timestamps
     end

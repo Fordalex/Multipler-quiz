@@ -44,7 +44,6 @@ class RoomsController < ApplicationController
 
   def question_options
     @room.reset_players_answered
-    @room.update(question_start_time: Time.now)
     correct_answer = params[:correct_answer]
     @room.questioner.update(answer: correct_answer)
 
@@ -52,6 +51,7 @@ class RoomsController < ApplicationController
       action: 'get ready',
     }
     sleep(3)
+    @room.update(question_start_time: Time.now)
     ActionCable.server.broadcast "room_channel_#{@room_id}", {
       correct_answer: @room.questioner.answer,
       question_options: random_order_options,
@@ -116,6 +116,7 @@ class RoomsController < ApplicationController
       question: @question.question_for(@room.questioner.name),
       options: @question.options,
       questioner: @room.questioner.name,
+      incorrect_answer_limit: @question.incorrect_answers,
       action: 'start quiz',
     }
     @room.reset_players_ready_status
@@ -131,8 +132,8 @@ class RoomsController < ApplicationController
   end
 
   def set_question
-    count = Question.count
+    count = Question.all.count
     random_offset = rand(count)
-    @question = Question.offset(random_offset).limit(1).first
+    @question = Question.all.offset(random_offset).limit(1).first
   end
 end
