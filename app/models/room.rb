@@ -15,7 +15,8 @@ class Room < ApplicationRecord
 
   def change_questioner
     players.update_all(questioner: false)
-    players.sample.update(questioner: true)
+    questioner = players.where(turns_taken: current_round - 1)
+    questioner.update(questioner: true)
   end
 
   def reset_players_answered
@@ -32,6 +33,10 @@ class Room < ApplicationRecord
 
   def everyone_ready?
     players.where(ready: false).empty?
+  end
+
+  def quiz_finished?
+    questioner.nil? && rounds == current_round
   end
 
   def give_points

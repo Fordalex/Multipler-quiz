@@ -5,7 +5,7 @@
 <div id="roomId" data-room-id="<%= @room_id %>"></div>
 
 <div class="row lobby-container m-0 p-0">
-  <div class="col-8 qrcode-container">
+  <div class="col-7 qrcode-container">
     <div>
       <h4 class="text-center">Scan QR code</h4>
       <p class="text-center">Scan this QR code to join the lobby.</p>
@@ -15,9 +15,17 @@
     </div>
   </div>
 
-  <div class="col-4 lobby-wrapper">
+  <div class="col-5 lobby-wrapper">
     <h1 class="text-center">Lobby</h1>
     <h3 class="text-center lobby-roomName"><%= @room.name %></h3>
+    <hr>
+      <h3 class="lobby-playersTitle">Settings</h3>
+      <table class="table table-striped">
+        <tr>
+          <td>Number of Rounds</td>
+          <td><%= @room.rounds %></td>
+        </tr>
+      </table>
     <hr>
     <div id="users">
       <h3 class="lobby-playersTitle">Players</h3>

@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
 function setupQuiz(data) {
   if (action == 'start quiz') {
-    questioner = (playersName == data['questioner']);
+    questioner = (playersName.toLowerCase() == data['questioner'].toLowerCase());
     startQuiz(data);
   }
 

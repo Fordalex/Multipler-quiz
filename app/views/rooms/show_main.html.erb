@@ -3,6 +3,7 @@
 <% end %>
 
 <h1 class="text-center mt-4"><%= @room.name.titleize %></h1>
+<p class="text-center">Round <%= @room.current_round %> / <%= @room.rounds %></p>
 
 <div id="roomId" data-room-id="<%= @room_id %>"></div>
 
@@ -12,7 +13,7 @@
       <h2>Players</h2>
       <ul id="playerList" class="p-0">
         <% @room.player_positions.each do |player| %>
-          <%= render partial: 'shared/player_small', locals: { player: player } %>
+          <%= render partial: 'player', locals: { player: player } %>
         <% end %>
       </ul>
     </div>

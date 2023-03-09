@@ -33,8 +33,6 @@ class RoomsController < ApplicationController
   end
 
   def show_main
-    @room.change_questioner
-
     start_quiz
   end
 
@@ -75,7 +73,9 @@ class RoomsController < ApplicationController
       action: 'player answered'
     }
     if @room.everyone_answered?
+      # TODO a method like .next_round might be better.
       @room.give_points
+      @room.questioner.update(turns_taken: @room.questioner.turns_taken + 1)
       ActionCable.server.broadcast "room_channel_#{@room_id}", {
         action: 'everyone has answered',
       }
@@ -94,6 +94,7 @@ class RoomsController < ApplicationController
     }
 
     if @room.everyone_ready?
+
       start_quiz
     end
 
@@ -111,6 +112,13 @@ class RoomsController < ApplicationController
   end
 
   def start_quiz
+    @room.change_questioner
+    # TODO this won't redirect, broadcast to the room the quiz is over.
+    # Then display a button on the main show page to 'Show results'
+    return puts 'The quiz has finished.' if @room.quiz_finished?
+
+    @room.update(current_round: @room.current_round + 1) if @room.questioner.nil?
+
     set_question
     set_room
     ActionCable.server.broadcast "room_channel_#{@room_id}", {
@@ -124,7 +132,7 @@ class RoomsController < ApplicationController
   end
 
   def room_params
-    params.require(:room).permit(:name, :room_id)
+    params.require(:room).permit(:name, :room_id, :rounds)
   end
 
   def set_room

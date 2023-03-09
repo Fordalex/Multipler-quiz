@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_04_115051) do
+ActiveRecord::Schema.define(version: 2023_03_09_121038) do
 
   create_table "players", force: :cascade do |t|
     t.string "name"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 2023_03_04_115051) do
     t.boolean "ready", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "turns_taken", default: 0
     t.index ["room_id"], name: "index_players_on_room_id"
   end
 
@@ -41,6 +42,8 @@ ActiveRecord::Schema.define(version: 2023_03_04_115051) do
     t.string "room_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "rounds", default: 1
+    t.integer "current_round", default: 1
   end
 
   add_foreign_key "players", "rooms"

@@ -25,6 +25,11 @@
       </div>
 
       <div class="col-12">
+        <%= form.label :rounds, :rounds %>
+        <%= form.number_field :rounds, min: 1, class: "form-control" %>
+      </div>
+
+      <div class="col-12">
         <%= form.submit :next, class: "btn btn-primary" %>
       </div>
     </div>
