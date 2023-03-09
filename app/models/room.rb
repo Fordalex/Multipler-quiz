@@ -44,4 +44,16 @@ class Room < ApplicationRecord
       player.update(score: player.score + 1) if player.answer == questioner.answer
     end
   end
+
+  def players_scores_for_line_graph
+    JSON.generate(players.map do |player|
+      player.line_chart_data
+    end).html_safe
+  end
+
+  def rounds_for_line_graph
+    JSON.generate(rounds.times.map do |round|
+      "Round #{round + 1}"
+    end).html_safe
+  end
 end

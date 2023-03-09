@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_09_121038) do
+ActiveRecord::Schema.define(version: 2023_03_09_214444) do
 
   create_table "players", force: :cascade do |t|
     t.string "name"
@@ -46,5 +46,18 @@ ActiveRecord::Schema.define(version: 2023_03_09_121038) do
     t.integer "current_round", default: 1
   end
 
+  create_table "round_scores", force: :cascade do |t|
+    t.integer "player_id", null: false
+    t.integer "room_id", null: false
+    t.integer "round"
+    t.integer "score"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["player_id"], name: "index_round_scores_on_player_id"
+    t.index ["room_id"], name: "index_round_scores_on_room_id"
+  end
+
   add_foreign_key "players", "rooms"
+  add_foreign_key "round_scores", "players"
+  add_foreign_key "round_scores", "rooms"
 end

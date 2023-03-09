@@ -2,6 +2,10 @@
   <%= javascript_pack_tag 'channels/main' %>
 <% end %>
 
+<% content_for :extra_js do %>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.1/chart.min.js" integrity="sha512-v3ygConQmvH0QehvQa6gSvTE2VdBZ6wkLOlmK7Mcy2mZ0ZF9saNbbk19QeaoTHdWIEiTlWmrwAL4hS8ElnGFbA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<% end %>
+
 <h1 class="text-center mt-4"><%= @room.name.titleize %></h1>
 <p class="text-center">Round <%= @room.current_round %> / <%= @room.rounds %></p>
 
@@ -47,10 +51,33 @@
   </div>
 </div>
 
+<div>
+  <canvas id="myChart"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <script>
-    const playerAnsweredSound = new Audio(`<%= audio_path 'question_answered.wav' %>`);
-    const selectAnswerSound = new Audio(`<%= audio_path 'countdown.wav' %>`);
-    const displayAnswersSound = new Audio(`<%= audio_path 'display_answers.wav' %>`);
-    const getReadySound = new Audio(`<%= audio_path 'get_ready.wav' %>`);
-    const displayQuestionSound = new Audio(`<%= audio_path 'display_question.mp3' %>`);
+  const ctx = document.getElementById('myChart');
+
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: <%= @room.rounds_for_line_graph %>,
+      datasets: <%= @room.players_scores_for_line_graph %>
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+
+  const playerAnsweredSound = new Audio(`<%= audio_path 'question_answered.wav' %>`);
+  const selectAnswerSound = new Audio(`<%= audio_path 'countdown.wav' %>`);
+  const displayAnswersSound = new Audio(`<%= audio_path 'display_answers.wav' %>`);
+  const getReadySound = new Audio(`<%= audio_path 'get_ready.wav' %>`);
+  const displayQuestionSound = new Audio(`<%= audio_path 'display_question.mp3' %>`);
 </script>
