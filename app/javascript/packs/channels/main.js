@@ -5,7 +5,7 @@ import consumer from "../../channels/consumer"
 
 let correctAnswer;
 
-document.addEventListener("DOMContentLoaded", function(event) {
+document.addEventListener("DOMContentLoaded", function (event) {
   const room_id = document.getElementById('roomId').dataset.roomId;
   displayQuestionSound.play();
 
@@ -55,6 +55,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
         playersAnswers = [];
         displayQuestionSound.play();
         setupTheQuestion(data);
+      }
+
+      if (action == 'quiz finished') {
+        displayModal()
       }
     }
   });
@@ -125,4 +129,12 @@ function displayResults() {
     ;
     option.insertAdjacentHTML("afterend", playerInfo);
   });
+}
+
+function displayModal() {
+   var myModal = new bootstrap.Modal(document.getElementById("exampleModal"), {
+    keyboard: false,
+    backdrop: 'static'
+  });
+  myModal.show();
 }

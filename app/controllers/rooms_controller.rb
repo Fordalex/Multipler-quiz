@@ -115,7 +115,7 @@ class RoomsController < ApplicationController
     @room.change_questioner
     # TODO this won't redirect, broadcast to the room the quiz is over.
     # Then display a button on the main show page to 'Show results'
-    return puts 'The quiz has finished.' if @room.quiz_finished?
+    return quiz_finished if @room.quiz_finished?
 
     @room.update(current_round: @room.current_round + 1) if @room.questioner.nil?
 
@@ -129,6 +129,12 @@ class RoomsController < ApplicationController
       action: 'start quiz',
     }
     @room.reset_players_ready_status
+  end
+
+  def quiz_finished
+    ActionCable.server.broadcast "room_channel_#{@room_id}", {
+      action: 'quiz finished',
+    }
   end
 
   def room_params

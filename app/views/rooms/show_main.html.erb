@@ -30,6 +30,23 @@
   <audio id="playerAnsweredSound" src="<%= audio_path 'question_answered.wav' %>"></audio>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Quiz Finished!</h1>
+      </div>
+      <div class="modal-body">
+        <p>Thank you for playing, continue to see your results.</p>
+      </div>
+      <div class="modal-footer">
+        <%= link_to 'See Results', root_path, class: 'btn btn-primary' %>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
     const playerAnsweredSound = new Audio(`<%= audio_path 'question_answered.wav' %>`);
     const selectAnswerSound = new Audio(`<%= audio_path 'countdown.wav' %>`);
