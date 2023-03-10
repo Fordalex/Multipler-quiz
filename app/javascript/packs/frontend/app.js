@@ -1,12 +1,17 @@
-const app = Vue.createApp({
+window.app = Vue.createApp({
   data() {
-    return {}
+    return {
+      players: [
+        {
+          name: "Player 1",
+          id: 1,
+        },
+        {
+          name: "Player 2",
+          id: 2,
+        }
+      ]
+    }
   },
   methods: {}
 })
-
-document.addEventListener('DOMContentLoaded', () => {
-  app.mount("#app");
-})
-
-export default app

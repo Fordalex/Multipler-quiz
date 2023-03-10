@@ -8,10 +8,6 @@
 
 <div id="roomId" data-room-id="<%= @room_id %>"></div>
 
-<div id="app">
-  <player></player>
-</div>
-
 <div class="row lobby-container m-0 p-0">
   <div class="col-7 qrcode-container">
     <div>
@@ -38,12 +34,9 @@
     <div id="users">
       <h3 class="lobby-playersTitle">Players</h3>
       <div id="userList" class="lobby-playerList">
-        <% @room.players.each do |player| %>
-          <%= render partial: 'shared/player_large', locals: { player: player } %>
-        <% end %>
-        <% if @room.players.empty? %>
-          <p>Wating for players to join.</p>
-        <% end %>
+        <div id="app">
+          <player v-for="player in players" :key="player.id" :name="player.name"></player>
+        </div>
       </div>
     </div>
     <%= link_to 'Start', room_show_main_path(room_id: @room.room_id), class: 'btn btn-primary lobby-button' %>
@@ -57,7 +50,9 @@
 <%= javascript_pack_tag 'frontend/components/PlayerLarge.js' %>
 
 <script>
-
+  document.addEventListener('DOMContentLoaded', () => {
+    window.app.mount("#app");
+  })
 </script>
 
 <script>
