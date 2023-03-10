@@ -2,7 +2,15 @@
   <%= javascript_pack_tag 'channels/lobby' %>
 <% end %>
 
+<% content_for :extra_js do %>
+  <script src="https://unpkg.com/vue@3"></script>
+<% end %>
+
 <div id="roomId" data-room-id="<%= @room_id %>"></div>
+
+<div id="app">
+  <player></player>
+</div>
 
 <div class="row lobby-container m-0 p-0">
   <div class="col-7 qrcode-container">
@@ -40,10 +48,20 @@
     </div>
     <%= link_to 'Start', room_show_main_path(room_id: @room.room_id), class: 'btn btn-primary lobby-button' %>
   </div>
-
 </div>
+
+<!-- Import the app -->
+<%= javascript_pack_tag 'frontend/app.js' %>
+
+<!-- Import components -->
+<%= javascript_pack_tag 'frontend/components/PlayerLarge.js' %>
+
+<script>
+
+</script>
 
 <script>
   let playerIconStyle = `<%= render partial: 'shared/player_large', locals: { player: OpenStruct.new(name: 'templateName', avatar: 'cool.png', colour: 'templateColour') } %>`
   const playerJoinedSound = new Audio(`<%= audio_path 'join_lobby.flac' %>`);
 </script>
+
