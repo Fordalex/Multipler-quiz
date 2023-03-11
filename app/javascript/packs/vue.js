@@ -3,7 +3,7 @@ window.__VUE_OPTIONS_API__ = true;
 window.__VUE_PROD_DEVTOOLS__ = false;
 
 import { createApp, ref } from 'vue/dist/vue.esm-bundler.js'
-import Player from './components/player.vue'
+import player from './components/Player.vue'
 
 let players = ref([]);
 
@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
     })
-    app.component('player', Player)
+    app.component('player', player)
     app.mount(appContainer)
   }
 });

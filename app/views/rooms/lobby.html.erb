@@ -2,10 +2,6 @@
   <%= javascript_pack_tag 'channels/lobby' %>
 <% end %>
 
-<% content_for :extra_js do %>
-  <script src="https://unpkg.com/vue@3"></script>
-<% end %>
-
 <div id="roomId" data-room-id="<%= @room_id %>"></div>
 
 <div id="app">

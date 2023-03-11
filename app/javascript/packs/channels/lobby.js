@@ -4,7 +4,6 @@
 import consumer from "../../channels/consumer"
 import players from "../vue.js"
 
-
 document.addEventListener("DOMContentLoaded", function (event) {
   const room_id = document.getElementById('roomId').dataset.roomId;
   const playersList = document.querySelector('[data-players]');
