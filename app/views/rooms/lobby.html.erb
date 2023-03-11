@@ -43,11 +43,12 @@
   </div>
 </div>
 
-<!-- Import the app -->
-<%= javascript_pack_tag 'vue.js' %>
-
+<%#
 <!-- Import components -->
-<%= javascript_pack_tag 'components/PlayerLarge.js' %>
+<%= javascript_pack_tag 'components/PlayerLarge.js' %> %>
+
+<!-- Import the app -->
+<%# <%= javascript_pack_tag 'vue.js' %>
 
 <script>
   // TODO I need to set the mountedApp.players = <%= @players %>

@@ -2,9 +2,11 @@
 // Literally can't get these to load individually without it.
 
 import consumer from "../../channels/consumer"
+import players from "../vue.js"
+
+players.value = [{ name: 'Player 3', score: 3, colour: 'green' }]
 
 document.addEventListener("DOMContentLoaded", function (event) {
-  const mountedApp = window.app.mount("#app");
   const room_id = document.getElementById('roomId').dataset.roomId;
 
   consumer.subscriptions.create({
@@ -23,7 +25,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
     received(data) {
 
       console.log(data)
-      mountedApp.players = data['players'];
+
+      players.value = data['players']
+
+
 
       playerJoinedSound.play();
     }
