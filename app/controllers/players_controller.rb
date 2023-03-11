@@ -10,7 +10,7 @@ class PlayersController < ApplicationController
 
     if @player.save
       session[:player_id] = @player.id
-      players = @room.players.map{ |p| {name: p.name, colour: p.colour, avatar: p.avatar} }
+      players = @room.players.map{ |p| {name: p.name, colour: p.colour, avatar: p.avatar, id: p.id} }
       ActionCable.server.broadcast "room_channel_#{@room_id}", {players: players}
       redirect_to room_show_player_path(room_id: @room.room_id)
     else
