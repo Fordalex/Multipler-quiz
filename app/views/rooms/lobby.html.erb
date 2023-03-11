@@ -34,7 +34,7 @@
       <hr>
       <div id="users">
         <h3 class="lobby-playersTitle">Players</h3>
-        <div id="userList" class="lobby-playerList">
+        <div id="userList" class="lobby-playerList" data-players="<%= @players %>">
           <player v-for="player in players" :key="player.id" :player="player"></player>
         </div>
       </div>
@@ -43,16 +43,6 @@
   </div>
 </div>
 
-<%#
-<!-- Import components -->
-<%= javascript_pack_tag 'components/PlayerLarge.js' %> %>
-
-<!-- Import the app -->
-<%# <%= javascript_pack_tag 'vue.js' %>
-
 <script>
-  // TODO I need to set the mountedApp.players = <%= @players %>
-
   const playerJoinedSound = new Audio(`<%= audio_path 'join_lobby.flac' %>`);
 </script>
-

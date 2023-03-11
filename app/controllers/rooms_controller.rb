@@ -21,6 +21,7 @@ class RoomsController < ApplicationController
 
   def lobby
     @room = Room.find_by(room_id: params[:room_id])
+    set_players(@room)
     @new_player_url = new_player_url
     qrcode = RQRCode::QRCode.new(@new_player_url)
     @QRCSVG = qrcode.as_svg(
@@ -150,5 +151,17 @@ class RoomsController < ApplicationController
     count = Question.all.count
     random_offset = rand(count)
     @question = Question.all.offset(random_offset).limit(1).first
+  end
+
+  def set_players(room)
+    players = room.players.map do |p|
+      {
+        id: p.id,
+        name: p.name,
+        colour: p.colour,
+        avatar: p.avatar
+      }
+    end
+    @players = JSON.generate(players)
   end
 end
