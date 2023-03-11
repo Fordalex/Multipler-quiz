@@ -2,6 +2,10 @@
   <%= javascript_pack_tag 'channels/lobby' %>
 <% end %>
 
+<% content_for :extra_js do %>
+  <%= javascript_pack_tag 'vue' %>
+<% end %>
+
 <div id="roomId" data-room-id="<%= @room_id %>"></div>
 
 <div id="app">
@@ -30,7 +34,7 @@
       <hr>
       <div id="users">
         <h3 class="lobby-playersTitle">Players</h3>
-        <div id="userList" class="lobby-playerList" data-players="<%= @players %>">
+        <div id="userList" class="lobby-playerList">
           <player v-for="player in players" :key="player.id" :player="player"></player>
         </div>
       </div>
@@ -40,5 +44,7 @@
 </div>
 
 <script>
+  window.players.value = <%= @players.html_safe %>;
+
   const playerJoinedSound = new Audio(`<%= audio_path 'join_lobby.flac' %>`);
 </script>

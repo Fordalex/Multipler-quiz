@@ -3,9 +3,11 @@ window.__VUE_OPTIONS_API__ = true;
 window.__VUE_PROD_DEVTOOLS__ = false;
 
 import { createApp, ref } from 'vue/dist/vue.esm-bundler.js'
-import player from './components/Player.vue'
+import Player from './components/Player.vue'
+import RoundCounter from './components/RoundCounter.vue'
 
-let players = ref([]);
+window.players = ref([]);
+window.currentRound = ref(1);
 
 document.addEventListener('DOMContentLoaded', () => {
   let appContainer = document.getElementById('app')
@@ -13,13 +15,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const app = createApp({
       data() {
         return {
-          players: players
+          players: window.players,
+          currentRound: window.currentRound
         }
       }
     })
-    app.component('player', player)
+    app.component('player', Player)
+    app.component('round-counter', RoundCounter)
     app.mount(appContainer)
   }
 });
 
-export default players;

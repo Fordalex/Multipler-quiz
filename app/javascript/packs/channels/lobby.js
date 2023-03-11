@@ -2,12 +2,9 @@
 // Literally can't get these to load individually without it.
 
 import consumer from "../../channels/consumer"
-import players from "../vue.js"
 
 document.addEventListener("DOMContentLoaded", function (event) {
   const room_id = document.getElementById('roomId').dataset.roomId;
-  const playersList = document.querySelector('[data-players]');
-  players.value = JSON.parse(playersList.dataset.players)
 
   consumer.subscriptions.create({
       channel: "RoomChannel",
@@ -26,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
       console.log(data)
 
-      players.value = data['players']
+      window.players.value = data['players']
 
       playerJoinedSound.play();
     }

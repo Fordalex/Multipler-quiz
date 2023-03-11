@@ -3,77 +3,62 @@
 <% end %>
 
 <% content_for :extra_js do %>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.1/chart.min.js" integrity="sha512-v3ygConQmvH0QehvQa6gSvTE2VdBZ6wkLOlmK7Mcy2mZ0ZF9saNbbk19QeaoTHdWIEiTlWmrwAL4hS8ElnGFbA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <%= javascript_pack_tag 'vue' %>
 <% end %>
 
-<h1 class="text-center mt-4"><%= @room.name.titleize %></h1>
-<p class="text-center">Round <%= @room.current_round %> / <%= @room.rounds %></p>
+<div id="app">
+  <h1 class="text-center mt-4"><%= @room.name.titleize %></h1>
+  <round-counter :current="currentRound" :total="<%= @room.rounds %>"></round-counter>
 
-<div id="roomId" data-room-id="<%= @room_id %>"></div>
+  <div id="roomId" data-room-id="<%= @room_id %>"></div>
 
-<div class="row">
-  <div class="col-3 p-5 pe-0">
-    <div id="users">
-      <h2>Players</h2>
-      <ul id="playerList" class="p-0">
-        <% @room.player_positions.each do |player| %>
-          <%= render partial: 'player', locals: { player: player } %>
-        <% end %>
-      </ul>
+  <div class="row">
+    <div class="col-3 p-5 pe-0">
+      <div id="users">
+        <h2>Players</h2>
+        <ul id="playerList" class="p-0">
+          <% @room.player_positions.each do |player| %>
+            <%= render partial: 'player', locals: { player: player } %>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col-9 p-5">
+      <%= render partial: 'shared/player_large', locals: { player: @room.questioner } %>
+      <h2 id="displayQuestion" class="text-center mt-3"><%= @question.question_for(@room.questioner.name) %></h2>
+      <ul class="question-options question-optionsMain" id="questionOptions"></ul>
     </div>
   </div>
 
-  <div class="col-9 p-5">
-    <%= render partial: 'shared/player_large', locals: { player: @room.questioner } %>
-    <h2 id="displayQuestion" class="text-center mt-3"><%= @question.question_for(@room.questioner.name) %></h2>
-    <ul class="question-options question-optionsMain" id="questionOptions"></ul>
+  <div id="soundContainer">
+    <audio id="playerAnsweredSound" src="<%= audio_path 'question_answered.wav' %>"></audio>
   </div>
-</div>
 
-<div id="soundContainer">
-  <audio id="playerAnsweredSound" src="<%= audio_path 'question_answered.wav' %>"></audio>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Quiz Finished!</h1>
-      </div>
-      <div class="modal-body">
-        <p>Thank you for playing, continue to see your results.</p>
-      </div>
-      <div class="modal-footer">
-        <%= link_to 'See Results', root_path, class: 'btn btn-primary' %>
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Quiz Finished!</h1>
+        </div>
+        <div class="modal-body">
+          <p>Thank you for playing, continue to see your results.</p>
+        </div>
+        <div class="modal-footer">
+          <%= link_to 'See Results', root_path, class: 'btn btn-primary' %>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<div>
-  <canvas id="myChart"></canvas>
+  <div>
+    <canvas id="myChart"></canvas>
+  </div>
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
-  const ctx = document.getElementById('myChart');
-
-  new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: <%= @room.rounds_for_line_graph %>,
-      datasets: <%= @room.players_scores_for_line_graph %>
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
-    }
-  });
+  window.currentRound.value = <%= @room.current_round %>;
 
   const playerAnsweredSound = new Audio(`<%= audio_path 'question_answered.wav' %>`);
   const selectAnswerSound = new Audio(`<%= audio_path 'countdown.wav' %>`);
