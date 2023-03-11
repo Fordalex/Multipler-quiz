@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_09_214444) do
-
+ActiveRecord::Schema[7.0].define(version: 2023_03_11_073141) do
   create_table "players", force: :cascade do |t|
     t.string "name"
     t.integer "score", default: 0
@@ -20,10 +19,10 @@ ActiveRecord::Schema.define(version: 2023_03_09_214444) do
     t.string "answer"
     t.string "colour"
     t.string "avatar"
-    t.datetime "time_taken_to_answer"
+    t.datetime "time_taken_to_answer", precision: nil
     t.boolean "ready", default: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "turns_taken", default: 0
     t.index ["room_id"], name: "index_players_on_room_id"
   end
@@ -32,16 +31,16 @@ ActiveRecord::Schema.define(version: 2023_03_09_214444) do
     t.text "question"
     t.text "options"
     t.integer "incorrect_answers", default: 1
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "rooms", force: :cascade do |t|
     t.string "name"
-    t.datetime "question_start_time"
+    t.datetime "question_start_time", precision: nil
     t.string "room_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "rounds", default: 1
     t.integer "current_round", default: 1
   end
@@ -51,8 +50,8 @@ ActiveRecord::Schema.define(version: 2023_03_09_214444) do
     t.integer "room_id", null: false
     t.integer "round"
     t.integer "score"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["player_id"], name: "index_round_scores_on_player_id"
     t.index ["room_id"], name: "index_round_scores_on_room_id"
   end
