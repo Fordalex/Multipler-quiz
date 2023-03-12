@@ -2,25 +2,26 @@
   "name": "multiplayer-quiz",
   "private": true,
   "dependencies": {
-    "@rails/actioncable": "^6.0.0",
-    "@rails/activestorage": "^6.0.0",
-    "@rails/ujs": "^6.0.0",
+    "@rails/actioncable": "^7.0.4-2",
+    "@rails/activestorage": "^7.0.4-2",
+    "@rails/ujs": "^7.0.4-2",
     "@rails/webpacker": "5.4.4",
     "turbolinks": "^5.2.0",
     "vue": "^3.2.47",
     "vue-loader": "^17.0.1",
-    "webpack": "^4.46.0",
-    "webpack-cli": "^3.3.12"
+    "webpack": "^5.76.1",
+    "webpack-cli": "^5.0.1"
   },
   "version": "0.1.0",
   "devDependencies": {
-    "@vue/test-utils": "^2.3.1",
     "@babel/preset-env": "^7.20.2",
     "@vue/babel-preset-app": "^5.0.8",
+    "@vue/compiler-sfc": "^3.2.47",
+    "@vue/test-utils": "^2.0.0-0",
     "babel-jest": "^29.5.0",
     "istanbul-reports": "^3.1.5",
     "jest": "^29.5.0",
-    "webpack-dev-server": "^3"
+    "webpack-dev-server": "^4.11.1"
   },
   "scripts": {
     "test": "jest --config package.json"
@@ -28,6 +29,13 @@
   "jest": {
     "roots": [
       "<rootDir>/app/javascript/tests"
+    ],
+    "moduleNameMapper": {
+      "^@/(.*)$": "<rootDir>/app/javascript/$1"
+    },
+    "modulePaths": [
+      "<rootDir>/node_modules/",
+      "<rootDir>/node_modules/@vue/compiler-sfc/dist/"
     ],
     "testMatch": [
       "**/tests/**/*.spec.[jt]s?(x)"
