@@ -52,6 +52,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
       }
 
       if (action == 'start quiz') {
+        window.currentRound.value = data['current_round'];
         playersAnswers = [];
         displayQuestionSound.play();
         setupTheQuestion(data);

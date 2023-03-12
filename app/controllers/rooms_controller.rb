@@ -127,6 +127,7 @@ class RoomsController < ApplicationController
       options: @question.options,
       questioner: @room.questioner.name,
       incorrect_answer_limit: @question.incorrect_answers,
+      current_round: @room.current_round,
       action: 'start quiz',
     }
     @room.reset_players_ready_status

@@ -1,5 +1,3 @@
-<!-- TODO add an image from the player. -->
-
 <template>
   <div class="player-container">
     <div class="player-iconContainer">
