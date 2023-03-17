@@ -10,8 +10,7 @@ export default defineConfig({
     outDir: 'public/assets',
     rollupOptions: {
       input: {
-        // application: 'app/javascript/entrypoints/application.js',
-        styles: 'app/assets/stylesheets/home.css'
+        styles: 'app/assets/stylesheets/main.css'
       }
     }
   }
