@@ -1,5 +1,5 @@
 <% content_for :channels do %>
-  <%= javascript_pack_tag 'channels/player' %>
+  <%= vite_javascript_tag 'channels/player' %>
 <% end %>
 <div id="roomId" data-room-id="<%= @room_id %>"></div>
 

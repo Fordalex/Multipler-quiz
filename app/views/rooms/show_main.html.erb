@@ -1,9 +1,9 @@
 <% content_for :channels do %>
-  <%= javascript_pack_tag 'channels/main' %>
+  <%= vite_javascript_tag 'channels/main' %>
 <% end %>
 
 <% content_for :extra_js do %>
-  <%= javascript_pack_tag 'vue' %>
+  <%= vite_javascript_tag 'vue' %>
 <% end %>
 
 <div id="app">
