@@ -1,10 +1,11 @@
 // Define feature flags
+
 window.__VUE_OPTIONS_API__ = true;
 window.__VUE_PROD_DEVTOOLS__ = false;
 
 import { createApp, ref } from 'vue/dist/vue.esm-bundler.js'
-import Player from './components/Player.vue'
-import RoundCounter from './components/RoundCounter.vue'
+import Player from './packs/components/Player.vue'
+import RoundCounter from './packs/components/RoundCounter.vue'
 
 window.players = ref([]);
 window.currentRound = ref(1);

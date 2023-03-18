@@ -1,1 +1,2 @@
-console.log('Connected using vite')
+// Define feature flags
+console.log('connected to lobby channel')
