@@ -1,38 +1,24 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Running the project
 
-Things you may want to cover:
+Build vites asset files:
 
-* Ruby version
+  `bin/vite build --clear --mode=development`
 
-* System dependencies
+Files are created in public/vite-dev
 
-* Configuration
+Server static files:
 
-* Database creation
+  `bundle exec vite dev`
 
-* Database initialization
+Run rails server:
 
-* How to run the test suite
+  `bundle exec rails s`
 
-* Services (job queues, cache servers, search engines, etc.)
+## Getting stupid bin/vite issues
 
-* Deployment instructions
+sudo n stable
+rm -rf node_modules/
+yarn install
 
-* ...
-
-### Features left to implement
-
-A questioner should be able to add custom options.
-Display on the players personal screen if they answered correctly or not, add the happy and sad illustrations.
-Find player by ID and not their name, this can have issues.
-A player should get more points for answering faster.
-Display the time taken to answer the question.
-A question needs to have a decoy count so true/false questions can be added.
-When creating a room a set number of rounds needs to be selected.
-
-### Acknowledgments
-
-https://uiverse.io/Nawsome/wet-mayfly-23

@@ -57,7 +57,7 @@
       "^.+\\.vue$": "vue-jest"
     },
     "roots": [
-      "<rootDir>/app/javascript/tests"
+      "<rootDir>/app/frontend/tests"
     ],
     "testMatch": [
       "**/tests/**/*.spec.[jt]s?(x)"

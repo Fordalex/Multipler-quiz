@@ -1,1 +1,1 @@
-console.log('forntend')
+console.log('Connected using vite')
