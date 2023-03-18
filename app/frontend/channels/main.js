@@ -1,7 +1,4 @@
-// TODO why do I have to create this channels folder in app/javascript/packs?
-// Literally can't get these to load individually without it.
-
-import consumer from "../../channels/consumer"
+import consumer from "./consumer"
 
 let correctAnswer;
 

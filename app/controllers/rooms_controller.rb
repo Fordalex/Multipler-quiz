@@ -103,7 +103,8 @@ class RoomsController < ApplicationController
   end
 
   def new_player_url
-    "#{request.protocol}#{request.remote_ip}:#{request.domain}#{request.port}/players/new/#{@room.room_id}"
+    # "#{request.protocol}#{request.remote_ip}:#{request.domain}#{request.port}/players/new/#{@room.room_id}"
+    "#{request.protocol}localhost:#{request.port}/players/new/#{@room.room_id}"
   end
 
   private

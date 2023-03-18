@@ -35,7 +35,6 @@
       <div id="users">
         <h3 class="lobby-playersTitle">Players</h3>
         <div id="userList" class="lobby-playerList">
-          <img src="<%= vite_asset_path('images/profile/cool.png') %>">
           <player v-for="player in players" :key="player.id" :player="player"></player>
         </div>
       </div>
