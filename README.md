@@ -8,6 +8,10 @@ Build vites asset files:
 
 Files are created in public/vite-dev
 
+Use the correct version of node:
+
+  `nvm use 16.19.1`
+
 Server static files:
 
   `bundle exec vite dev`
