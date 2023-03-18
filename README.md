@@ -20,6 +20,10 @@ Run rails server:
 
   `bundle exec rails s`
 
+## Running the project binded to IP
+
+<!-- dunno yet. Can't get vite dev --host to work. -->
+
 ## Getting stupid bin/vite issues
 
 sudo n stable
