@@ -161,7 +161,7 @@ class RoomsController < ApplicationController
         id: p.id,
         name: p.name,
         colour: p.colour,
-        avatar: p.avatar
+        avatar: view_context.image_path("profile/#{p.avatar}")
       }
     end
     @players = JSON.generate(players)

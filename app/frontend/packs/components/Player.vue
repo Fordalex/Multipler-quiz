@@ -1,6 +1,7 @@
 <template>
   <div class="player-container">
     <div class="player-iconContainer">
+      <img data-testid="playerIcon" class="player-icon" :src="player.avatar" :style="{ backgroundColor: player.colour }" />
       <span data-testid="playerPosition" class="player-position" v-if="player.position" :style="{ backgroundColor: player.colour }">{{ player.position }}</span>
     </div>
     <p data-testid="playerName" id="playerName" class="player-name" :style="{ backgroundColor: player.colour }">{{ player.name }}</p>
