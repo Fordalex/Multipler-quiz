@@ -9,6 +9,7 @@ dns.setDefaultResultOrder('verbatim')
 export default defineConfig({
   plugins: [
     Vue(),
+    // looks like RubyPlugin is preventing the network from running.
     RubyPlugin(),
   ],
   server: {
