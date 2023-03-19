@@ -1,4 +1,6 @@
 import consumer from "./consumer"
+import playerJoinedSound from '../../assets/audio/player_joined.flac'
+
 
 document.addEventListener("DOMContentLoaded", function (event) {
   const room_id = document.getElementById('roomId').dataset.roomId;
@@ -17,12 +19,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
     },
 
     received(data) {
+      const audio = new Audio(playerJoinedSound);
+      audio.play();
 
       console.log(data)
 
       window.players.value = data['players']
-
-      playerJoinedSound.play();
     }
   });
 });

@@ -1,2 +1,2 @@
 // Define feature flags
-console.log('connected to lobby channel')
+console.log('loaded application.js')

@@ -44,7 +44,10 @@
 </div>
 
 <script>
-  window.players.value = <%= @players.html_safe %>;
+  // Vite will load everything asynchonously,
+  // so we need to wait for the page to load before we can access the players
 
-  const playerJoinedSound = new Audio(`<%= audio_path 'join_lobby.flac' %>`);
+  window.onload = () => {
+    window.players.value = <%= @players.html_safe %>;
+  }
 </script>
