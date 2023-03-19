@@ -1,20 +1,20 @@
 <template>
   <div class="player-container">
     <div class="player-iconContainer">
-      <span class="player-position" v-if="!!player.position" :style="{ backgroundColor: player.colour }">{{ player.colour }}</span>
+      <span data-testid="playerPosition" class="player-position" v-if="player.position" :style="{ backgroundColor: player.colour }">{{ player.position }}</span>
     </div>
-    <p id="playerName" class="player-name" :style="{ backgroundColor: player.colour }">{{ player.name }}</p>
-    <p class="player-score" v-if="!!player.score">{{ player.score }}</p>
+    <p data-testid="playerName" id="playerName" class="player-name" :style="{ backgroundColor: player.colour }">{{ player.name }}</p>
+    <p data-testid="playerScore" class="player-score" v-if="player.score">{{ player.score }}</p>
   </div>
 </template>
 
-<script setup>
-  import { defineProps } from 'vue/dist/vue.esm-bundler.js'
-
-  defineProps({
+<script>
+export default {
+  props: {
     player: {
       type: Object,
       required: true
     }
-  })
+  }
+}
 </script>
