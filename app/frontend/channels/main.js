@@ -1,10 +1,19 @@
 import consumer from "./consumer"
+import displayQuestionSound from '../../assets/audio/display_question.mp3'
+import selectAnswerSound from '../../assets/audio/countdown.wav'
+import displayAnswersSound from '../../assets/audio/display_answers.wav'
+import getReadySound from '../../assets/audio/get_ready.wav'
 
 let correctAnswer;
 
 document.addEventListener("DOMContentLoaded", function (event) {
   const room_id = document.getElementById('roomId').dataset.roomId;
-  displayQuestionSound.play();
+  const startAnswerAudio = new Audio(displayQuestionSound);
+  const displayQuestionAudio = new Audio(displayQuestionSound);
+  const getReadyAudio = new Audio(getReadySound);
+  const selectAnswerAudio = new Audio(selectAnswerSound);
+  const displayAnswersAudio = new Audio(displayAnswersSound);
+  displayQuestionAudio.play();
 
   consumer.subscriptions.create({
       channel: "RoomChannel",
@@ -25,14 +34,14 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
       // TODO the action names are not very descriptive
       if (action == 'select answer') {
-        selectAnswerSound.play();
+        startAnswerAudio.play();
         correctAnswer = data['correct_answer'];
         displayOptions(data['question_options'].split(','));
         displayWaitingForPlayers();
       }
 
       if (action == 'get ready') {
-        getReadySound.play();
+        getReadyAudio.play();
       }
 
       if (action == 'player answered') {
@@ -43,15 +52,15 @@ document.addEventListener("DOMContentLoaded", function (event) {
       }
 
       if (action == 'everyone has answered') {
-        selectAnswerSound.pause();
-        displayAnswersSound.play();
+        selectAnswerAudio.pause();
+        displayAnswersAudio.play();
         displayResults();
       }
 
       if (action == 'start quiz') {
         window.currentRound.value = data['current_round'];
         playersAnswers = [];
-        displayQuestionSound.play();
+        displayQuestionAudio.play();
         setupTheQuestion(data);
       }
 

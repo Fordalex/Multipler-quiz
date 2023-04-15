@@ -58,11 +58,7 @@
 </div>
 
 <script>
-  window.currentRound.value = <%= @room.current_round %>;
-
-  const playerAnsweredSound = new Audio(`<%= audio_path 'question_answered.wav' %>`);
-  const selectAnswerSound = new Audio(`<%= audio_path 'countdown.wav' %>`);
-  const displayAnswersSound = new Audio(`<%= audio_path 'display_answers.wav' %>`);
-  const getReadySound = new Audio(`<%= audio_path 'get_ready.wav' %>`);
-  const displayQuestionSound = new Audio(`<%= audio_path 'display_question.mp3' %>`);
+  window.onload = () => {
+    window.currentRound.value = <%= @room.current_round %>;
+  }
 </script>
